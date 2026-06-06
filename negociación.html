@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start a Project | Matías Ibarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Satoshi:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/stylengo.css">
+</head>
+<body>
+
+  <video autoplay muted loop playsinline class="video-bg">
+    <source src="Fondo.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="back-link reveal fade-left">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Portfolio
+      </a>
+    </div>
+  </nav>
+
+  <main class="contact-container">
+
+    <div class="info-panel">
+      <div class="badge reveal fade-left delay-1">
+        <span class="badge-dot"></span>
+        Currently accepting new projects
+      </div>
+      
+      <h1 class="info-title reveal fade-left delay-2">Let's build something exceptional.</h1>
+      
+      <p class="info-desc reveal fade-left delay-3">
+        To ensure maximum efficiency and focus on delivering high-quality code, I operate on an <strong>async-first</strong> communication model. This allows me to dedicate uninterrupted time to architectural planning and development.
+      </p>
+
+      <div class="process-steps">
+        <div class="step reveal fade-up delay-2">
+          <div class="step-num">1</div>
+          <p><strong>Submit your brief:</strong> Fill out the form with your project details and technical requirements.</p>
+        </div>
+        <div class="step reveal fade-up delay-3">
+          <div class="step-num">2</div>
+          <p><strong>Technical Review:</strong> I will analyze the scope and feasibility of your request within 24-48 hours.</p>
+        </div>
+        <div class="step reveal fade-up delay-4">
+          <div class="step-num">3</div>
+          <p><strong>Proposal &amp; Kickoff:</strong> You will receive a detailed proposal via email, including architecture layout, timelines, and pricing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-panel reveal fade-right delay-2">
+      <form id="projectForm" action="https://api.web3forms.com/submit" method="POST">
+
+        <input type="hidden" name="access_key" value="90e1896c-755e-489a-a8f5-19d59b53c9f5">
+        <input type="hidden" name="subject" value="Nuevo Request de Proyecto! 🚀">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required="">
+          </div>
+          <div class="form-group">
+            <label for="company">Company (Optional)</label>
+            <input type="text" id="company" name="company" placeholder="Acme Corp">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Work Email</label>
+          <input type="email" id="email" name="email" placeholder="john@company.com" required="">
+        </div>
+
+        <div class="form-group">
+          <label for="budget">Estimated Budget</label>
+          <select id="budget" name="budget" required="">
+            <option value="" disabled="" selected="">Select a range</option>
+            <option value="under_5">Less than $500</option>
+            <option value="1k_2k">$1,000 - $2,500</option>
+            <option value="3k_5k">$3,000 - $5,000</option>
+            <option value="5k_plus">$5,000+</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="details">Project Details</label>
+          <textarea id="details" name="details" placeholder="Tell me about the problem you are trying to solve, your current tech stack, and your goals..." required=""></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Request Technical Proposal</button>
+      </form>
+    </div>
+
+  </main>
+<script src="js/scriptnego.js"></script>
+</body>
+</html>
