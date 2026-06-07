@@ -1,0 +1,1400 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú | Giuli Burger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&amp;family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --char:   #1c1a17;
+    --cream:  #fffcf7;
+    --terra:  #c8522a;
+    --gold:   #e9c46a;
+    --bg:     #fffcf7;
+    --font-display: 'Bowlby One SC', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --radius-pill:  12px;
+    --radius-card:  16px;
+    --nav-height:   64px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--char); font-family: var(--font-body); overflow-x: hidden; }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+  ul { list-style: none; }
+
+  /* ─── NAVBAR ─── */
+  .navbar {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    height: var(--nav-height);
+    padding: 12px 24px;
+    background: var(--terra);
+    border-radius: 16px;
+    min-width: 600px;
+  }
+  .navbar__logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--cream);
+    white-space: nowrap;
+  }
+  .navbar__links { display: flex; align-items: center; gap: 8px; }
+  .btn-pill {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px; height: 32px; padding: 2px 16px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display); font-size: 0.75rem;
+    cursor: pointer; border: none;
+    transition: opacity .18s, transform .18s;
+    white-space: nowrap;
+  }
+  .btn-pill:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-cream { background: var(--cream); color: var(--char); }
+  .btn-char  { background: var(--char);  color: var(--cream); }
+  .btn-terra { background: var(--terra); color: var(--cream); }
+  .btn-lg { height: auto; padding: 10px 24px; font-size: .75rem; }
+
+  /* ─── TICKER ─── */
+  .ticker {
+    width: 100%; height: 32px;
+    background: var(--terra);
+    overflow: hidden; display: flex; align-items: center;
+  }
+  .ticker__track {
+    display: flex; align-items: center; gap: 16px;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+  }
+  .ticker__track span {
+    font-family: var(--font-display); font-size: .75rem;
+    color: rgba(255,252,247,.9); flex-shrink: 0; padding: 0 4px;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── PAGE HEADER ─── */
+  .page-header {
+    padding: 120px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .sesame-dots { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .sesame-dots span {
+    display: block; background: var(--terra);
+  }
+  .sesame-dots span:nth-child(1) { width:12px; height:17px; border-radius: 40% 40% 50% 50%; }
+  .sesame-dots span:nth-child(2) { width:11px; height:18px; border-radius: 40% 40% 50% 50%; margin-top:-4px; }
+  .sesame-dots span:nth-child(3) { width:12px; height:17px; border-radius: 40% 40% 50% 50%; }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--terra);
+    line-height: 1.1;
+    letter-spacing: -.02em;
+  }
+  .page-header p {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--char);
+    opacity: .6;
+  }
+
+  /* ─── CATEGORY TABS ─── */
+  .category-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 24px 48px;
+  }
+  .tab-btn {
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: .75rem;
+    cursor: pointer;
+    border: 2.5px solid var(--terra);
+    background: transparent;
+    color: var(--terra);
+    transition: all .2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--terra);
+    color: var(--cream);
+  }
+
+  /* ─── MENU GRID ─── */
+  .menu-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+  .menu-category { display: none; }
+  .menu-category.visible { display: block; }
+
+  .category-label {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--terra);
+    opacity: .5;
+    margin-bottom: 24px;
+    letter-spacing: .05em;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .menu-card {
+    border-radius: var(--radius-card);
+    background: var(--cream);
+    border: 2.5px solid transparent;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    overflow: hidden;
+    position: relative;
+  }
+  .menu-card:hover {
+    border-color: var(--terra);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(200,82,42,.12);
+  }
+  .menu-card__img {
+    width: 100%; aspect-ratio: 4/3;
+    overflow: hidden; background: #eee;
+  }
+  .menu-card__img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .4s;
+  }
+  .menu-card:hover .menu-card__img img { transform: scale(1.05); }
+
+  .menu-card__body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .menu-card__name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--char);
+    line-height: 1.2;
+  }
+  .menu-card__desc {
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--char);
+    opacity: .55;
+    line-height: 1.4;
+  }
+  .menu-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .menu-card__price {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--terra);
+  }
+  .menu-card__tags { display: flex; gap: 6px; }
+  .tag {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 26px; width: 26px;
+    border-radius: 8px;
+    border: 2px solid var(--terra);
+    font-family: var(--font-display);
+    font-size: .65rem;
+    color: var(--terra);
+  }
+
+  /* ─── MODAL ─── */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(28,26,23,.7);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s, visibility .3s;
+  }
+  .modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .modal {
+    background: var(--cream);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(24px) scale(.97);
+    transition: transform .3s cubic-bezier(.22,1.5,.36,1);
+    position: relative;
+  }
+  .modal-backdrop.open .modal {
+    transform: translateY(0) scale(1);
+  }
+  .modal__img {
+    width: 100%; aspect-ratio: 16/9;
+    overflow: hidden; border-radius: 20px 20px 0 0;
+  }
+  .modal__img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .modal__body { padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+  .modal__name {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--terra);
+    line-height: 1.1;
+  }
+  .modal__desc {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--char);
+    opacity: .65;
+    line-height: 1.6;
+  }
+  .modal__ingredients {
+    background: rgba(200,82,42,.07);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .modal__ingredients h4 {
+    font-family: var(--font-display);
+    font-size: .75rem;
+    color: var(--terra);
+    margin-bottom: 8px;
+    letter-spacing: .05em;
+  }
+  .modal__ingredients ul {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .modal__ingredients ul li {
+    background: var(--terra);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: .7rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+  .modal__price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+  }
+  .modal__price {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--char);
+  }
+  .modal__qty {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .qty-btn {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    border: 2.5px solid var(--terra);
+    background: transparent;
+    color: var(--terra);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+  }
+  .qty-btn:hover { background: var(--terra); color: var(--cream); }
+  .qty-num {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    min-width: 24px;
+    text-align: center;
+  }
+  .modal__actions { display: flex; gap: 10px; }
+  .modal__add-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border-radius: var(--radius-pill);
+    background: var(--terra);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: .85rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity .18s, transform .18s;
+  }
+  .modal__add-btn:hover { opacity: .88; transform: translateY(-1px); }
+  .modal__close {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: rgba(28,26,23,.08);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    color: var(--char);
+    transition: background .15s;
+    position: absolute;
+    top: 16px; right: 16px;
+    z-index: 2;
+  }
+  .modal__close:hover { background: rgba(28,26,23,.16); }
+
+  /* ─── CART ─── */
+  .cart-fab {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 150;
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 22px;
+    background: var(--char);
+    color: var(--cream);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: .85rem;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 8px 28px rgba(28,26,23,.3);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cart-fab:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(28,26,23,.35); }
+  .cart-fab__badge {
+    background: var(--terra);
+    color: var(--cream);
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: .7rem;
+    min-width: 22px;
+    text-align: center;
+  }
+  .cart-fab.hidden { display: none; }
+
+  .cart-panel {
+    position: fixed;
+    bottom: 0; right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background: var(--cream);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.22,1.5,.36,1);
+    box-shadow: -8px 0 48px rgba(28,26,23,.15);
+  }
+  .cart-panel.open { transform: translateX(0); }
+
+  .cart-panel__header {
+    padding: 24px 24px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid rgba(200,82,42,.12);
+  }
+  .cart-panel__title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--char);
+  }
+  .cart-close {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: rgba(28,26,23,.07);
+    border: none; cursor: pointer;
+    font-size: 1.1rem; color: var(--char);
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+  }
+  .cart-close:hover { background: rgba(28,26,23,.14); }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cart-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .cart-empty__icon { font-size: 3rem; opacity: .3; }
+  .cart-empty__text {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--char);
+    opacity: .4;
+  }
+
+  .cart-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px;
+    background: rgba(200,82,42,.05);
+    border-radius: 14px;
+    border: 1.5px solid rgba(200,82,42,.1);
+  }
+  .cart-item__img {
+    width: 64px; height: 64px;
+    border-radius: 10px; overflow: hidden; flex-shrink: 0;
+    background: #eee;
+  }
+  .cart-item__img img { width: 100%; height: 100%; object-fit: cover; }
+  .cart-item__info { flex: 1; min-width: 0; }
+  .cart-item__name {
+    font-family: var(--font-display);
+    font-size: .95rem;
+    color: var(--char);
+    line-height: 1.2;
+  }
+  .cart-item__price {
+    font-family: var(--font-display);
+    font-size: .85rem;
+    color: var(--terra);
+    margin-top: 4px;
+  }
+  .cart-item__qty {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cart-item__qty button {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    border: 2px solid var(--terra);
+    background: transparent;
+    color: var(--terra);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, color .15s;
+  }
+  .cart-item__qty button:hover { background: var(--terra); color: var(--cream); }
+  .cart-item__qty span {
+    font-family: var(--font-display);
+    font-size: .95rem;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .cart-footer {
+    padding: 20px 24px 32px;
+    border-top: 2px solid rgba(200,82,42,.12);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cart-total {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-total__label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--char);
+    opacity: .6;
+  }
+  .cart-total__price {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--char);
+  }
+  .cart-note {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 2px solid rgba(200,82,42,.2);
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: .9rem;
+    color: var(--char);
+    resize: none;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .cart-note:focus { border-color: var(--terra); }
+  .cart-note::placeholder { opacity: .4; }
+  .whatsapp-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px;
+    background: #25D366;
+    color: #fff;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: .85rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .whatsapp-btn:hover { opacity: .9; transform: translateY(-2px); }
+  .whatsapp-btn svg { width: 22px; height: 22px; }
+  .clear-btn {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px;
+    background: transparent;
+    color: var(--char);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: .7rem;
+    cursor: pointer;
+    border: 2px solid rgba(28,26,23,.15);
+    opacity: .6;
+    transition: opacity .2s;
+  }
+  .clear-btn:hover { opacity: 1; }
+
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(28,26,23,.4);
+    z-index: 299;
+    opacity: 0; visibility: hidden;
+    transition: opacity .3s, visibility .3s;
+  }
+  .cart-overlay.open { opacity: 1; visibility: visible; }
+
+  /* ─── MOBILE ─── */
+  .menu-toggle { display: none; }
+  .mobile-menu-overlay {
+    position: fixed; inset: 0;
+    background: var(--terra);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+  .mobile-menu-overlay.is-active { opacity: 1; visibility: visible; }
+  .mobile-menu-overlay a {
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 809px) {
+    .navbar__inner { min-width: unset; width: calc(100vw - 16px); gap: 8px; padding: 12px 16px; }
+    .navbar { top: 8px; left: 8px; right: 8px; transform: none; width: auto; }
+    .navbar__links { display: none; }
+    .menu-toggle {
+      display: flex; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 10px; z-index: 1001;
+    }
+    .menu-toggle span {
+      width: 25px; height: 3px;
+      background-color: var(--cream);
+      border-radius: 2px; transition: 0.3s ease;
+    }
+    .cart-panel { max-width: 100%; }
+    .modal { max-width: 100%; border-radius: 20px 20px 0 0; align-self: flex-end; }
+    .modal-backdrop { align-items: flex-end; padding: 0; }
+  }
+
+  /* ─── REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+</style>
+</head>
+<body>
+
+<!-- Mobile overlay -->
+<div class="mobile-menu-overlay" id="mobile-menu" style="display:none;">
+  <a href="index.html">Inicio</a>
+  <a href="#hamburguesas">Hamburguesas</a>
+  <a href="#pizzas">Pizzas</a>
+  <a href="#empanadas">Empanadas</a>
+  <a href="#milanesas">Milanesas</a>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__logo">Giuli Burger</a>
+    <div class="navbar__links">
+      <a href="index.html" class="btn-pill btn-cream">INICIO</a>
+      <a href="#hamburguesas" class="btn-pill btn-cream">HAMBURGUESAS</a>
+      <a href="#pizzas" class="btn-pill btn-cream">PIZZAS</a>
+      <a href="#empanadas" class="btn-pill btn-cream">EMPANADAS</a>
+      <a href="#milanesas" class="btn-pill btn-cream">MILANESAS</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Ticker -->
+
+
+<!-- Page header -->
+<div class="page-header">
+  <div class="sesame-dots"><span></span><span></span><span></span></div>
+  <h1 class="reveal visible">El Menú Completo.</h1>
+  <p class="reveal reveal-delay-1 visible">Todo lo que tenemos, Elegí lo tuyo.</p>
+</div>
+
+<!-- Category tabs -->
+<div class="category-tabs reveal reveal-delay-2 visible">
+  <button class="tab-btn active" data-cat="all">TODOS</button>
+  <button class="tab-btn" data-cat="hamburguesas">HAMBURGUESAS</button>
+  <button class="tab-btn" data-cat="pizzas">PIZZAS</button>
+  <button class="tab-btn" data-cat="empanadas">EMPANADAS</button>
+  <button class="tab-btn" data-cat="milanesas">MILANESAS</button>
+</div>
+
+<!-- Menu -->
+<main class="menu-section">
+
+  <!-- HAMBURGUESAS -->
+  <div class="menu-category visible" data-category="hamburguesas" id="hamburguesas">
+    <p class="category-label">— HAMBURGUESAS C/ PAPAS</p>
+    <div class="menu-grid" id="grid-hamburguesas"><div class="menu-card reveal visible" data-id="h1" data-cat="hamburguesas">
+        <div class="menu-card__img">
+          <img src="burgergiu1.jpeg" alt="Americana" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Americana</div>
+          <div class="menu-card__desc">La clásica de la casa. Carne jugosa con todos los clásicos.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal visible" data-id="h2" data-cat="hamburguesas">
+        <div class="menu-card__img">
+          <img src="burgergiu2.jpeg" alt="Mc Cartney" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Mc Cartney</div>
+          <div class="menu-card__desc">Una combinación irresistible con toque especial.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal visible" data-id="h3" data-cat="hamburguesas">
+        <div class="menu-card__img">
+          <img src="burgergiu3.jpeg" alt="Jackson" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Jackson</div>
+          <div class="menu-card__desc">Para los que la quieren con todo el sabor posible.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="h4" data-cat="hamburguesas">
+        <div class="menu-card__img">
+          <img src="#" alt="Francia" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Francia</div>
+          <div class="menu-card__desc">Con un toque diferente, inspirada en los clásicos europeos.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div></div>
+  </div>
+
+  <!-- PIZZAS -->
+  <div class="menu-category visible" data-category="pizzas" id="pizzas" style="margin-top:48px;">
+    <p class="category-label">— PIZZAS</p>
+    <div class="menu-grid" id="grid-pizzas"><div class="menu-card reveal" data-id="p1" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger2.jpeg" alt="Muzzarella" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Muzzarella</div>
+          <div class="menu-card__desc">La clásica con abundante muzzarella derretida.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="p2" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger3.jpeg" alt="Especial" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Especial</div>
+          <div class="menu-card__desc">Con los mejores ingredientes seleccionados de la casa.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="p3" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger1.jpeg" alt="Fugazzeta" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Fugazzeta</div>
+          <div class="menu-card__desc">Cebolla y queso en perfecta armonía. Un clásico porteño.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="p4" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger2.jpeg" alt="Pepperoni" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Pepperoni</div>
+          <div class="menu-card__desc">Con generosas rodajas de pepperoni bien condimentado.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="p5" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger3.jpeg" alt="Napolitana" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Napolitana</div>
+          <div class="menu-card__desc">Tomate en rodajas, ajo y orégano. La favorita de la nonna.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="p6" data-cat="pizzas">
+        <div class="menu-card__img">
+          <img src="burger1.jpeg" alt="Roquefort" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Roquefort</div>
+          <div class="menu-card__desc">Intensa y cremosa. Para los amantes del queso fuerte.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div></div>
+  </div>
+
+  <!-- EMPANADAS -->
+  <div class="menu-category visible" data-category="empanadas" id="empanadas" style="margin-top:48px;">
+    <p class="category-label">— EMPANADAS</p>
+    <div class="menu-grid" id="grid-empanadas"><div class="menu-card reveal" data-id="e1" data-cat="empanadas">
+        <div class="menu-card__img">
+          <img src="burger2.jpeg" alt="Empanada de Pollo" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Empanada de Pollo</div>
+          <div class="menu-card__desc">Relleno jugoso de pollo con condimentos caseros.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="e2" data-cat="empanadas">
+        <div class="menu-card__img">
+          <img src="burger3.jpeg" alt="Empanada de Carne" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Empanada de Carne</div>
+          <div class="menu-card__desc">Relleno clásico de carne picada sazonada.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="e3" data-cat="empanadas">
+        <div class="menu-card__img">
+          <img src="burger1.jpeg" alt="Empanada de Ternera y Queso" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Empanada de Ternera y Queso</div>
+          <div class="menu-card__desc">Ternera tierna con queso derretido en cada mordida.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="e4" data-cat="empanadas">
+        <div class="menu-card__img">
+          <img src="burger2.jpeg" alt="Empanada de Jamón y Queso" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Empanada de Jamón y Queso</div>
+          <div class="menu-card__desc">El combo clásico de jamón y queso en formato empanada.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div></div>
+  </div>
+
+  <!-- MILANESAS -->
+  <div class="menu-category visible" data-category="milanesas" id="milanesas" style="margin-top:48px;">
+    <p class="category-label">— SANDWICH DE MILANESA C/ PAPAS</p>
+    <div class="menu-grid" id="grid-milanesas"><div class="menu-card reveal" data-id="m1" data-cat="milanesas">
+        <div class="menu-card__img">
+          <img src="burger3.jpeg" alt="Milanesa Molida Común" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Milanesa Molida Común</div>
+          <div class="menu-card__desc">Milanesa de carne molida clásica, crocante y sabrosa. Con papas.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="m2" data-cat="milanesas">
+        <div class="menu-card__img">
+          <img src="burger1.jpeg" alt="Milanesa Molida Especial" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Milanesa Molida Especial</div>
+          <div class="menu-card__desc">Milanesa molida con ingredientes extras de la casa. Con papas.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="m3" data-cat="milanesas">
+        <div class="menu-card__img">
+          <img src="burger2.jpeg" alt="Milanesa Nalga Común" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Milanesa Nalga Común</div>
+          <div class="menu-card__desc">Milanesa de nalga tierna y bien crocante. Con papas.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div><div class="menu-card reveal" data-id="m4" data-cat="milanesas">
+        <div class="menu-card__img">
+          <img src="burger3.jpeg" alt="Milanesa Nalga Especial" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">Milanesa Nalga Especial</div>
+          <div class="menu-card__desc">Milanesa de nalga con todos los extras de la casa. Con papas.</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">Consultá precio</div>
+            <div class="menu-card__tags"></div>
+          </div>
+        </div>
+      </div></div>
+  </div>
+
+</main>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" id="modal">
+    <button class="modal__close" id="modal-close">✕</button>
+    <div class="modal__img"><img id="modal-img" src="" alt=""></div>
+    <div class="modal__body">
+      <h2 class="modal__name" id="modal-name"></h2>
+      <p class="modal__desc" id="modal-desc"></p>
+      <div class="modal__ingredients">
+        <h4>INGREDIENTES</h4>
+        <ul id="modal-ingredients"></ul>
+      </div>
+      <div class="modal__price-row">
+        <div class="modal__price" id="modal-price"></div>
+        <div class="modal__qty">
+          <button class="qty-btn" id="qty-minus">−</button>
+          <span class="qty-num" id="qty-num">1</span>
+          <button class="qty-btn" id="qty-plus">+</button>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button class="modal__add-btn" id="modal-add-btn">AGREGAR AL PEDIDO 🛒</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart overlay -->
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<!-- Cart panel -->
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-panel__header">
+    <span class="cart-panel__title">Tu Pedido</span>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <div class="cart-empty__icon">🍔</div>
+      <div class="cart-empty__text">Todavía no agregaste nada.<br>¡Elegí algo rico!</div>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-total">
+      <span class="cart-total__label">TOTAL</span>
+      <span class="cart-total__price" id="cart-total-price">$0</span>
+    </div>
+    <textarea class="cart-note" id="cart-note" rows="2" placeholder="¿Alguna aclaración? (sin sal, sin cebolla...)"></textarea>
+    <button class="whatsapp-btn" id="whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.847L.057 23.882a.5.5 0 00.61.61l6.083-1.471A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 01-5.073-1.384l-.361-.214-3.744.906.921-3.668-.236-.374A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 5.477 10 10-4.477 10-10 10z"></path>
+      </svg>
+      MANDAR PEDIDO POR WHATSAPP
+    </button>
+    <button class="clear-btn" id="clear-btn">VACIAR PEDIDO</button>
+  </div>
+</div>
+
+<!-- Cart FAB -->
+<button class="cart-fab hidden" id="cart-fab">
+  🛒 <span id="cart-fab-label">MI PEDIDO</span>
+  <span class="cart-fab__badge" id="cart-count">0</span>
+</button>
+
+<script>
+// ── NÚMERO DE WHATSAPP ────────────────────────────────────────────────────
+const WHATSAPP_NUMBER = '5493815189437'; // Giuli Burger
+
+// ── DATOS DEL MENÚ ────────────────────────────────────────────────────────
+const menuData = {
+  hamburguesas: [
+    {
+      id: 'h1',
+      name: 'Americana',
+      desc: 'La clásica de la casa. Carne jugosa con todos los clásicos.',
+      ingredients: ['Carne', 'Tomate', 'Lechuga', 'Cheddar', 'Salsa de la casa'],
+      price: 0,
+      img: 'burgergiu1.jpeg',
+      tags: [],
+    },
+    {
+      id: 'h2',
+      name: 'Mc Cartney',
+      desc: 'Una combinación irresistible con toque especial.',
+      ingredients: ['Carne', 'Tomate', 'Lechuga', 'Cheddar', 'Salsa especial'],
+      price: 0,
+      img: 'burgergiu2.jpeg',
+      tags: [],
+    },
+    {
+      id: 'h3',
+      name: 'Jackson',
+      desc: 'Para los que la quieren con todo el sabor posible.',
+      ingredients: ['Doble Carne', 'Cheddar', 'Tomate', 'Lechuga', 'Salsa especial'],
+      price: 0,
+      img: 'burgergiu3.jpeg',
+      tags: [],
+    },
+    {
+      id: 'h4',
+      name: 'Francia',
+      desc: 'Con un toque diferente, inspirada en los clásicos europeos.',
+      ingredients: ['Carne', 'Queso', 'Tomate', 'Lechuga', 'Salsa Francia'],
+      price: 0,
+      img: '',
+      tags: [],
+    },
+  ],
+  pizzas: [
+    {
+      id: 'p1',
+      name: 'Muzzarella',
+      desc: 'La clásica con abundante muzzarella derretida.',
+      ingredients: ['Masa artesanal', 'Salsa de tomate', 'Muzzarella'],
+      price: 0,
+      img: 'burger2.jpeg',
+      tags: [],
+    },
+    {
+      id: 'p2',
+      name: 'Especial',
+      desc: 'Con los mejores ingredientes seleccionados de la casa.',
+      ingredients: ['Masa artesanal', 'Salsa de tomate', 'Muzzarella', 'Ingredientes especiales'],
+      price: 0,
+      img: 'burger3.jpeg',
+      tags: [],
+    },
+    {
+      id: 'p3',
+      name: 'Fugazzeta',
+      desc: 'Cebolla y queso en perfecta armonía. Un clásico porteño.',
+      ingredients: ['Masa artesanal', 'Cebolla', 'Muzzarella'],
+      price: 0,
+      img: 'burger1.jpeg',
+      tags: [],
+    },
+    {
+      id: 'p4',
+      name: 'Pepperoni',
+      desc: 'Con generosas rodajas de pepperoni bien condimentado.',
+      ingredients: ['Masa artesanal', 'Salsa de tomate', 'Muzzarella', 'Pepperoni'],
+      price: 0,
+      img: 'burger2.jpeg',
+      tags: [],
+    },
+    {
+      id: 'p5',
+      name: 'Napolitana',
+      desc: 'Tomate en rodajas, ajo y orégano. La favorita de la nonna.',
+      ingredients: ['Masa artesanal', 'Salsa de tomate', 'Muzzarella', 'Tomate fresco', 'Ajo', 'Orégano'],
+      price: 0,
+      img: 'burger3.jpeg',
+      tags: [],
+    },
+    {
+      id: 'p6',
+      name: 'Roquefort',
+      desc: 'Intensa y cremosa. Para los amantes del queso fuerte.',
+      ingredients: ['Masa artesanal', 'Muzzarella', 'Queso Roquefort'],
+      price: 0,
+      img: 'burger1.jpeg',
+      tags: [],
+    },
+  ],
+  empanadas: [
+    {
+      id: 'e1',
+      name: 'Empanada de Pollo',
+      desc: 'Relleno jugoso de pollo con condimentos caseros.',
+      ingredients: ['Masa artesanal', 'Pollo', 'Condimentos'],
+      price: 0,
+      img: 'burger2.jpeg',
+      tags: [],
+    },
+    {
+      id: 'e2',
+      name: 'Empanada de Carne',
+      desc: 'Relleno clásico de carne picada sazonada.',
+      ingredients: ['Masa artesanal', 'Carne picada', 'Condimentos'],
+      price: 0,
+      img: 'burger3.jpeg',
+      tags: [],
+    },
+    {
+      id: 'e3',
+      name: 'Empanada de Ternera y Queso',
+      desc: 'Ternera tierna con queso derretido en cada mordida.',
+      ingredients: ['Masa artesanal', 'Ternera', 'Queso'],
+      price: 0,
+      img: 'burger1.jpeg',
+      tags: [],
+    },
+    {
+      id: 'e4',
+      name: 'Empanada de Jamón y Queso',
+      desc: 'El combo clásico de jamón y queso en formato empanada.',
+      ingredients: ['Masa artesanal', 'Jamón', 'Queso'],
+      price: 0,
+      img: 'burger2.jpeg',
+      tags: [],
+    },
+  ],
+  milanesas: [
+    {
+      id: 'm1',
+      name: 'Milanesa Molida Común',
+      desc: 'Milanesa de carne molida clásica, crocante y sabrosa. Con papas.',
+      ingredients: ['Milanesa molida', 'Pan', 'Lechuga', 'Tomate', 'Papas'],
+      price: 0,
+      img: 'burger3.jpeg',
+      tags: [],
+    },
+    {
+      id: 'm2',
+      name: 'Milanesa Molida Especial',
+      desc: 'Milanesa molida con ingredientes extras de la casa. Con papas.',
+      ingredients: ['Milanesa molida', 'Pan especial', 'Lechuga', 'Tomate', 'Salsa especial', 'Papas'],
+      price: 0,
+      img: 'burger1.jpeg',
+      tags: [],
+    },
+    {
+      id: 'm3',
+      name: 'Milanesa Nalga Común',
+      desc: 'Milanesa de nalga tierna y bien crocante. Con papas.',
+      ingredients: ['Milanesa de nalga', 'Pan', 'Lechuga', 'Tomate', 'Papas'],
+      price: 0,
+      img: 'burger2.jpeg',
+      tags: [],
+    },
+    {
+      id: 'm4',
+      name: 'Milanesa Nalga Especial',
+      desc: 'Milanesa de nalga con todos los extras de la casa. Con papas.',
+      ingredients: ['Milanesa de nalga', 'Pan especial', 'Lechuga', 'Tomate', 'Salsa especial', 'Papas'],
+      price: 0,
+      img: 'burger3.jpeg',
+      tags: [],
+    },
+  ],
+};
+
+// ── FORMATEAR PRECIO ──────────────────────────────────────────────────────
+function formatPrice(n) {
+  if (n === 0) return 'Consultá precio';
+  return '$' + n.toLocaleString('es-AR');
+}
+
+// ── RENDERIZAR CARDS ──────────────────────────────────────────────────────
+function renderCards() {
+  Object.entries(menuData).forEach(([cat, items]) => {
+    const grid = document.getElementById('grid-' + cat);
+    if (!grid) return;
+    grid.innerHTML = '';
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'menu-card reveal';
+      card.dataset.id = item.id;
+      card.dataset.cat = cat;
+      card.innerHTML = `
+        <div class="menu-card__img">
+          <img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="menu-card__body">
+          <div class="menu-card__name">${item.name}</div>
+          <div class="menu-card__desc">${item.desc}</div>
+          <div class="menu-card__footer">
+            <div class="menu-card__price">${formatPrice(item.price)}</div>
+            <div class="menu-card__tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(item));
+      grid.appendChild(card);
+    });
+  });
+  initReveal();
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────
+let currentItem = null;
+let currentQty  = 1;
+
+function openModal(item) {
+  currentItem = item;
+  currentQty  = 1;
+  document.getElementById('modal-img').src          = item.img;
+  document.getElementById('modal-img').alt          = item.name;
+  document.getElementById('modal-name').textContent = item.name;
+  document.getElementById('modal-desc').textContent = item.desc;
+  document.getElementById('modal-price').textContent = formatPrice(item.price);
+  document.getElementById('qty-num').textContent    = 1;
+  const ul = document.getElementById('modal-ingredients');
+  ul.innerHTML = item.ingredients.map(i => `<li>${i}</li>`).join('');
+  document.getElementById('modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-backdrop').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-backdrop')) closeModal();
+});
+
+document.getElementById('qty-plus').addEventListener('click', () => {
+  currentQty = Math.min(currentQty + 1, 20);
+  document.getElementById('qty-num').textContent = currentQty;
+});
+document.getElementById('qty-minus').addEventListener('click', () => {
+  currentQty = Math.max(currentQty - 1, 1);
+  document.getElementById('qty-num').textContent = currentQty;
+});
+
+document.getElementById('modal-add-btn').addEventListener('click', () => {
+  addToCart(currentItem, currentQty);
+  closeModal();
+  openCart();
+});
+
+// ── CARRITO ───────────────────────────────────────────────────────────────
+let cart = [];
+
+function addToCart(item, qty) {
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ ...item, qty });
+  }
+  renderCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  renderCart();
+}
+
+function updateQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items');
+  const footer    = document.getElementById('cart-footer');
+  const fab       = document.getElementById('cart-fab');
+  const count     = document.getElementById('cart-count');
+  const total     = document.getElementById('cart-total-price');
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty__icon">🍔</div>
+        <div class="cart-empty__text">Todavía no agregaste nada.<br>¡Elegí algo rico!</div>
+      </div>`;
+    footer.style.display = 'none';
+    fab.classList.add('hidden');
+    return;
+  }
+
+  const totalItems = cart.reduce((s, c) => s + c.qty, 0);
+  const totalPrice = cart.reduce((s, c) => s + c.price * c.qty, 0);
+
+  container.innerHTML = cart.map(c => `
+    <div class="cart-item" data-id="${c.id}">
+      <div class="cart-item__img">
+        <img src="${c.img}" alt="${c.name}" onerror="this.style.display='none'">
+      </div>
+      <div class="cart-item__info">
+        <div class="cart-item__name">${c.name}</div>
+        <div class="cart-item__price">${c.price > 0 ? formatPrice(c.price) + ' c/u' : 'Consultar precio'}</div>
+      </div>
+      <div class="cart-item__qty">
+        <button onclick="updateQty('${c.id}', -1)">−</button>
+        <span>${c.qty}</span>
+        <button onclick="updateQty('${c.id}', 1)">+</button>
+        <button onclick="removeFromCart('${c.id}')" style="border-color:rgba(28,26,23,.2);color:rgba(28,26,23,.4);">✕</button>
+      </div>
+    </div>
+  `).join('');
+
+  footer.style.display = 'flex';
+  total.textContent = totalPrice > 0 ? formatPrice(totalPrice) : 'A confirmar';
+  count.textContent = totalItems;
+  fab.classList.remove('hidden');
+}
+
+function openCart() {
+  document.getElementById('cart-panel').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cart-panel').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cart-fab').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+document.getElementById('clear-btn').addEventListener('click', () => {
+  cart = [];
+  renderCart();
+});
+
+// ── WHATSAPP ──────────────────────────────────────────────────────────────
+document.getElementById('whatsapp-btn').addEventListener('click', () => {
+  if (cart.length === 0) return;
+  const note = document.getElementById('cart-note').value.trim();
+  let msg = '🍔 *PEDIDO GIULI BURGER*\n\n';
+  cart.forEach(c => {
+    msg += `• ${c.name} x${c.qty}\n`;
+  });
+  msg += `\n📦 *${cart.reduce((s,c) => s + c.qty, 0)} producto(s)*`;
+  if (note) msg += `\n\n📝 Aclaración: ${note}`;
+  msg += '\n\n_Pedido enviado desde la web 🌐_';
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+});
+
+// ── CATEGORY TABS ─────────────────────────────────────────────────────────
+const tabs = document.querySelectorAll('.tab-btn');
+const categories = document.querySelectorAll('.menu-category');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const cat = tab.dataset.cat;
+    if (cat === 'all') {
+      categories.forEach(c => c.classList.add('visible'));
+    } else {
+      categories.forEach(c => {
+        c.classList.toggle('visible', c.dataset.category === cat);
+      });
+    }
+  });
+});
+
+// ── REVEAL OBSERVER ───────────────────────────────────────────────────────
+function initReveal() {
+  const reveals = document.querySelectorAll('.reveal:not(.visible)');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => obs.observe(el));
+}
+
+// ── MOBILE MENU ───────────────────────────────────────────────────────────
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  const m = document.getElementById('mobile-menu');
+  if (m.style.display === 'none' || !m.style.display) {
+    m.style.display = 'flex';
+    requestAnimationFrame(() => m.classList.add('is-active'));
+  } else {
+    m.classList.remove('is-active');
+    setTimeout(() => { m.style.display = 'none'; }, 300);
+  }
+});
+document.querySelectorAll('#mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => {
+    const m = document.getElementById('mobile-menu');
+    m.classList.remove('is-active');
+    setTimeout(() => { m.style.display = 'none'; }, 300);
+  });
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+renderCards();
+initReveal();
+</script>
+
+
+</body></html>

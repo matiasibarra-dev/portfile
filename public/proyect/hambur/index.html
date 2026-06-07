@@ -1,0 +1,1373 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Giuli Burger</title>
+<meta name="description" content="Burger artesanales hechas con amor. Pizzas, empanadas y más. Pedí tu Giuli Burger ahora.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&amp;family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&amp;display=swap" rel="stylesheet">
+
+<style>
+    /* ─── CSS VARIABLES ────────────────────────────────────────────────── */
+  :root {
+    --char:   #1c1a17;
+    --cream:  #fffcf7;
+    --terra:  #c8522a;
+    --gold:   #e9c46a;
+    --bg:     #fffcf7;
+    --font-display: 'Bowlby One SC', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --radius-pill:  12px;
+    --radius-card:  16px;
+    --radius-lg:    24px;
+    --nav-height:   64px;
+  }
+
+  /* ─── RESET ────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--char); font-family: var(--font-body); overflow-x: hidden; }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+  h1,h2,h3,h4,h5,h6,p { margin: 0; }
+
+  /* ─── UTILITIES ────────────────────────────────────────────────────── */
+  .sr-only { position: absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+
+  /* ─── NAVBAR ───────────────────────────────────────────────────────── */
+  .navbar {
+    position: fixed;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: auto;
+    max-width: 1200px;
+  }
+
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    height: var(--nav-height);
+    padding: 12px 24px;
+    background: var(--terra);
+    border-radius: 16px;
+    min-width: 600px;
+  }
+
+  .navbar__logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--cream);
+    line-height: 1.4;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 32px;
+    padding: 2px 16px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    line-height: 1.5;
+    cursor: pointer;
+    border: none;
+    transition: opacity .18s, transform .18s;
+    white-space: nowrap;
+    backdrop-filter: blur(20px);
+  }
+  .btn-pill:hover { opacity: .85; transform: translateY(-1px); }
+  .btn-pill:active { transform: translateY(0); }
+
+  .btn-cream  { background: var(--cream); color: var(--char); }
+  .btn-char   { background: var(--char);  color: var(--cream); }
+  .btn-terra  { background: var(--terra); color: var(--cream); }
+
+  /* ─── HERO ─────────────────────────────────────────────────────────── */
+  .hero {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    max-height: 1024px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    width: 100%;
+    max-width: 1440px;
+    padding: 96px 24px 0;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .hero__floats {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .float-img {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    animation: floatIn .7s cubic-bezier(.22,1.5,.36,1) forwards;
+  }
+  .float-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+  .float-img--a { width:384px; height:384px; bottom:-64px; left:32px;   rotate: -19deg; filter: blur(8px)  drop-shadow(0 2px 2px #00000040); animation-delay:.2s; }
+  .float-img--b { width:288px; height:288px; bottom:32px;  right:64px;  rotate:  27deg; filter: blur(2px)  drop-shadow(0 2px 2px #00000040); animation-delay:.4s; }
+  .float-img--c { width:192px; height:192px; top:50%;      left:32px;   rotate:  22deg; transform: translateY(-50%); filter: blur(.2px) drop-shadow(0 2px 2px #00000040); animation-delay:.6s; }
+  .float-img--d { width:160px; height:160px; top:37%;      right:64px;  rotate: -14deg; transform: translateY(-50%); filter: blur(4px)  drop-shadow(0 2px 2px #00000040); animation-delay:.8s; }
+  .float-img--e { width: 96px; height: 96px; top:32px;     left:160px;  rotate:  -3deg; filter: blur(1.5px) drop-shadow(0 2px 2px #00000040); animation-delay:1s; }
+  .float-img--f { width: 64px; height: 64px; top:32px;     right:240px; rotate:  29deg; filter: blur(.2px) drop-shadow(0 2px 2px #00000040); animation-delay:1.2s; }
+
+  @keyframes floatIn {
+    from { opacity:0; transform: scale(.5) translateY(20px); }
+    to   { opacity:1; }
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 12px;
+    background: rgba(200,82,42,.25);
+    font-family: var(--font-display);
+    font-size: .75rem;
+    color: var(--terra);
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp .6s .2s cubic-bezier(.22,1.5,.36,1) forwards;
+  }
+  .hero__badge .arrow-icon {
+    width: 14px; height: 14px;
+    background: var(--terra);
+    border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .hero__badge .arrow-icon svg { width: 8px; height: 8px; }
+
+  .hero__title-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp .7s .4s cubic-bezier(.22,1.5,.36,1) forwards;
+  }
+  .hero__h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    text-align: center;
+    color: var(--terra);
+  }
+  .hero__sub {
+    font-family: 'Inter Display', var(--font-body);
+    font-size: 1.06rem;
+    font-weight: 900;
+    line-height: 1.4;
+    letter-spacing: .04em;
+    text-align: center;
+    color: var(--char);
+    max-width: 60%;
+  }
+
+  .hero__cta {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp .7s .8s cubic-bezier(.22,1.5,.36,1) forwards;
+  }
+  .btn-lg {
+    height: auto;
+    padding: 10px 24px;
+    font-size: .75rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp .6s 1.6s ease forwards;
+  }
+  .hero__scroll span {
+    font-family: var(--font-display);
+    font-size: .75rem;
+    color: var(--char);
+    opacity: .2;
+  }
+  .scroll-arrow { width:12px; height:12px; opacity:.2; }
+  .scroll-arrow svg { width:100%; height:100%; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(16px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ─── TICKER ───────────────────────────────────────────────────────── */
+  .ticker {
+    width: 100%;
+    height: 32px;
+    background: var(--terra);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+  }
+  .ticker__track {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+    will-change: transform;
+  }
+  .ticker__track span {
+    font-family: var(--font-display);
+    font-size: .75rem;
+    color: rgba(255,252,247,.9);
+    flex-shrink: 0;
+    padding: 0 4px;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ─── SECTION COMMON ───────────────────────────────────────────────── */
+  .section {
+    position: relative;
+    width: 100%;
+    background: var(--bg);
+  }
+  .section__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+  }
+  .section__logo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .sesame-dots { display: flex; gap: 6px; align-items: center; }
+  .sesame-dots span {
+    display: block;
+    border-radius: 50%;
+    background: var(--terra);
+  }
+  .sesame-dots span:nth-child(1) { width:12px; height:17px; border-radius: 40% 40% 50% 50%; }
+  .sesame-dots span:nth-child(2) { width:11px; height:18px; border-radius: 40% 40% 50% 50%; margin-top:-4px; }
+  .sesame-dots span:nth-child(3) { width:12px; height:17px; border-radius: 40% 40% 50% 50%; }
+
+  .section__heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1em;
+    letter-spacing: -.02em;
+    text-align: center;
+    color: var(--char);
+  }
+  .section__sub {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    line-height: 1.3;
+    letter-spacing: -.01em;
+    text-align: center;
+    color: var(--terra);
+  }
+
+  /* ─── MENU SECTION ─────────────────────────────────────────────────── */
+  .section--menu { background: var(--bg); z-index: 3; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+
+  .menu-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border-radius: var(--radius-card);
+    background: var(--bg);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .menu-card:hover { background: rgba(200,82,42,.06); transform: translateY(-4px); }
+
+  .menu-card__img {
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #eee;
+  }
+  .menu-card__img img { width:100%; height:100%; object-fit:cover; }
+
+  .menu-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1.4vw, 1.31rem);
+    line-height: 1.4;
+    color: var(--terra);
+  }
+  .menu-card__desc {
+    font-family: var(--font-display);
+    font-size: .75rem;
+    line-height: 1.5;
+    color: var(--terra);
+  }
+  .menu-card__tags { display: flex; gap: 8px; padding-top: 4px; }
+  .tag {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 32px; width: 32px;
+    border-radius: 12px;
+    border: 2.5px solid var(--terra);
+    font-family: var(--font-display);
+    font-size: .75rem;
+    color: var(--terra);
+  }
+
+  /* ─── STORY SECTION ────────────────────────────────────────────────── */
+  .section--story { background: var(--bg); z-index: 4; }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    height: 720px;
+    border-radius: var(--radius-lg);
+    overflow: visible;
+    padding: 8px;
+    background: var(--bg);
+  }
+
+  .story-card {
+    position: relative;
+    border-radius: var(--radius-card);
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    background: #111;
+    transition: transform .2s;
+  }
+  .story-card:hover { transform: scale(1.02); }
+
+  .story-card--span2 { grid-row: span 2; }
+
+  .story-card__img {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    width: 100%; height: 100%;
+    border-radius: inherit;
+    filter: brightness(1) grayscale(0);
+    mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 15%, rgba(0,0,0,.75) 35%, #000 55%, #000 100%);
+    -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 15%, rgba(0,0,0,.75) 35%, #000 55%, #000 100%);
+  }
+  .story-card__overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(0deg, #111 0%, rgba(17,17,17,0) 60%);
+    pointer-events: none;
+  }
+  .story-card__content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .story-card__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--cream);
+  }
+  .story-card__desc {
+    font-size: .88rem;
+    font-weight: 900;
+    letter-spacing: .04em;
+    line-height: 1.4;
+    color: var(--cream);
+    width: 75%;
+  }
+
+  .spin-badge {
+    position: absolute;
+    top: -48px; left: -48px;
+    width: 128px; height: 128px;
+    z-index: 6;
+    pointer-events: none;
+  }
+  .spin-badge__ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 8px dotted var(--terra);
+    animation: spinRing 8s linear infinite;
+  }
+  .spin-badge__fill {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: var(--terra);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .spin-badge__fill span {
+    font-family: var(--font-display);
+    font-size: 1.31rem;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.4;
+  }
+  @keyframes spinRing { to { transform: rotate(360deg); } }
+
+  /* ─── FEEDBACK SECTION ─────────────────────────────────────────────── */
+  .section--feedback { background: var(--bg); z-index: 3; overflow: hidden; }
+
+  .reviews-track-wrap {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.25) 5%, #000 10%),
+                  linear-gradient(270deg, transparent 0%, rgba(0,0,0,.25) 5%, #000 10%);
+    -webkit-mask-composite: source-in, source-over;
+    mask: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.25) 5%, #000 10%) intersect,
+          linear-gradient(270deg, transparent 0%, rgba(0,0,0,.25) 5%, #000 10%);
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: 32px;
+    width: max-content;
+  }
+  .reviews-track--fwd  { animation: scrollFwd 30s linear infinite; margin-bottom: 32px; }
+  .reviews-track--rev  { animation: scrollRev 30s linear infinite; }
+
+  @keyframes scrollFwd { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes scrollRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+  .review-card {
+    flex-shrink: 0;
+    width: 320px;
+    height: 192px;
+    border-radius: var(--radius-card);
+    border: 4px solid var(--terra);
+    background: var(--cream);
+    overflow: hidden;
+    display: flex;
+  }
+  .review-card--photo { background: #111; }
+  .review-card--photo img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+
+  .review-card__inner {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .review-card__meta { display: flex; align-items: center; gap: 16px; }
+  .review-card__name-row { display: flex; align-items: center; gap: 8px; }
+  .review-card__loc-row  { display: flex; align-items: center; gap: 4px; }
+
+  .icon-person, .icon-pin { width:20px; height:21px; flex-shrink: 0; }
+  .icon-person path, .icon-pin path { stroke: var(--terra); fill: transparent; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .review-card__name, .review-card__loc {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    letter-spacing: .02em;
+    color: var(--terra);
+    line-height: 1.2;
+  }
+  .review-card__text {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    letter-spacing: .02em;
+    color: var(--char);
+    line-height: 1.3;
+    text-align: center;
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .reviews-track > .review-card:nth-child(odd)  { transform: rotate( 2deg); }
+  .reviews-track > .review-card:nth-child(even) { transform: rotate(-2deg); }
+
+  /* ─── FOOTER ───────────────────────────────────────────────────────── */
+  .footer-wrap {
+    position: relative;
+    z-index: 5;
+    padding: 16px;
+    background: var(--bg);
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .footer {
+    width: 100%;
+    border-radius: var(--radius-card);
+    background: var(--terra);
+    padding: 48px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+  }
+
+  .footer__floats {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .footer__float {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 1;
+    filter: blur(.2px) drop-shadow(2px 4px 4px rgba(0,0,0,.25));
+  }
+  .footer__float img { width:100%; height:100%; object-fit:cover; border-radius: 50%; }
+  .footer__float--l {
+    width: 384px; height: 384px;
+    top: 16px; left: -128px;
+    transform: rotate(31deg);
+  }
+  .footer__float--r {
+    width: 384px; height: 384px;
+    top: 16px; right: -128px;
+    transform: rotate(-30deg);
+  }
+
+  .footer__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .footer__heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5.5vw, 6rem);
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    text-align: center;
+    color: var(--cream);
+  }
+  .footer__sub {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+    letter-spacing: -.01em;
+    text-align: center;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+  .footer__socials { display: flex; gap: 8px; align-items: center; }
+  .social-btn {
+    width: 32px; height: 32px;
+    border-radius: 12px;
+    background: rgba(255,252,247,.12);
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+    color: var(--cream);
+    flex-shrink: 0;
+  }
+  .social-btn:hover { background: rgba(255,252,247,.28); }
+  .social-btn svg { width: 20px; height: 20px; }
+
+  .footer__logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--cream);
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+  .footer__copy {
+    height: 32px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+    background: var(--cream);
+    display: flex; align-items: center;
+    font-family: var(--font-display);
+    font-size: .75rem;
+    letter-spacing: -.01em;
+    color: var(--char);
+    white-space: nowrap;
+  }
+
+  /* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+  @media (max-width: 1199px) {
+    .float-img--a { width:320px; height:320px; left:0; }
+    .float-img--b { width:224px; height:224px; }
+    .float-img--c { width:160px; height:160px; left:16px; }
+    .float-img--d { width:144px; height:144px; right:16px; }
+    .float-img--e { left:96px; }
+    .float-img--f { right:128px; }
+  }
+
+  @media (max-width: 809px) {
+    .navbar__inner { min-width: unset; width: calc(100vw - 16px); gap: 8px; padding: 12px 16px; }
+    .navbar { top: 8px; left: 8px; right: 8px; transform: none; width: auto; }
+    .float-img--a { width:256px; height:256px; left:-64px; }
+    .float-img--b { width:192px; height:192px; right:-64px; bottom:0; }
+    .float-img--c { width:128px; height:128px; left:-32px; top:58%; }
+    .float-img--d { width: 96px; height: 96px; right:-16px; top:53%; }
+    .float-img--e { width: 64px; height: 64px; left:32px; top:128px; }
+    .float-img--f { width: 48px; height: 48px; right:48px; top:128px; }
+    .hero__sub { max-width: 90%; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .story-grid { grid-template-columns: 1fr; height: auto; }
+    .story-card--span2 { grid-row: span 1; height: 326px; }
+    .story-card { height: 326px; }
+    .footer__float--l { width:256px; height:256px; top:256px; }
+    .footer__float--r { width:256px; height:256px; top:256px; }
+    .footer__bottom { flex-direction: column; gap: 16px; }
+    .footer-wrap { padding: 8px; }
+    .footer { border-radius: 12px; }
+  }
+
+  /* ─── SCROLL-TRIGGERED REVEAL ──────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* ─── MOBILE MENU ──────────────────────────────────────────────────── */
+  .menu-toggle { display: none; }
+
+  @media (max-width: 809px) {
+    .navbar__links { display: none; }
+
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--cream);
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--terra);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .mobile-menu-overlay.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu-overlay a {
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+
+    .footer__bottom { flex-direction: column; gap: 20px; text-align: center; }
+    .footer__copy { font-size: 0.65rem; padding: 0 10px; }
+  }
+
+</style>
+
+</head>
+<body>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-menu-overlay" id="mobile-menu" style="display:none;">
+  <a href="#home">Inicio</a>
+  <a href="#menu">Menú</a>
+  <a href="#story">Nosotros</a>
+  <a href="#feedback">Reseñas</a>
+  <a href="#order">Pedir Ahora</a>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" aria-label="main navigation">
+  <div class="navbar__inner">
+    <a href="#" class="navbar__logo">Giuli Burger</a>
+    <div class="navbar__links">
+      <a href="#menu" class="btn-pill btn-cream">MENÚ</a>
+      <a href="#story" class="btn-pill btn-cream">NOSOTROS</a>
+      <a href="#feedback" class="btn-pill btn-cream">RESEÑAS</a>
+      <a href="#order" class="btn-pill btn-char">PEDIR AHORA</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" id="home">
+  <div class="hero__floats" aria-hidden="true">
+    <div class="float-img float-img--a"><img src="burgerlog1.png" alt="Hamburguesa Americana"></div>
+    <div class="float-img float-img--b"><img src="burgerlog2.png" alt="Hamburguesa Jackson"></div>
+    <div class="float-img float-img--c"><img src="burgerlog4.png" alt="Pizza Especial"></div>
+    <div class="float-img float-img--d"><img src="burgerlog5.png" alt="Empanadas"></div>
+    <div class="float-img float-img--e"><img src="burgerlog4.png" alt="Milanesa"></div>
+    <div class="float-img float-img--f"><img src="burgerlog1.png" alt="Hamburguesa Francia"></div>
+  </div>
+
+  <div class="hero__content">
+    <a href="#order" class="hero__badge">
+      DELIVERY A DOMICILIO · ABIERTO AHORA
+      <span class="arrow-icon" aria-hidden="true">
+        <svg viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M0 0L10 0L10 10"></path><path d="M0 10L10 0"></path>
+        </svg>
+      </span>
+    </a>
+
+    <div class="hero__title-stack">
+      <h1 class="hero__h1">Burgers Artesanales,<br>De Verdad.</h1>
+      <p class="hero__sub" style="font-family: var(--font-display);">Hamburguesas, pizzas, empanadas y más.</p>
+    </div>
+
+    <div class="hero__cta">
+      <a href="menu.html" class="btn-pill btn-char btn-lg">PEDIR AHORA</a>
+      <a href="#menu" class="btn-pill btn-terra btn-lg">VER EL MENÚ</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5 12 12 19 19 12"></polyline>
+    </svg>
+    <span>Psst... Por acá</span>
+    <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line><polyline points="5 12 12 19 19 12"></polyline>
+    </svg>
+  </div>
+</header>
+
+<!-- Menu Section -->
+<section class="section section--menu" id="menu" aria-label="menu">
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+      <span>BURGERS ARTESANALES</span><span>•</span>
+      <span>DELIVERY A DOMICILIO</span><span>•</span>
+    </div>
+  </div>
+
+  <div class="section__inner">
+    <div class="section__logo reveal visible" aria-hidden="true">
+      <div class="sesame-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <h2 class="section__heading reveal reveal-delay-1 visible">Los Favoritos.</h2>
+    <p class="section__sub reveal reveal-delay-2 visible">Nuestras burgers más pedidas.</p>
+
+    <div class="cards-grid">
+      <a href="#order" class="menu-card reveal reveal-delay-1 visible" aria-label="Hamburguesa Americana">
+        <div class="menu-card__img"><img src="burgergiu1.jpeg" alt="Hamburguesa Americana" loading="lazy"></div>
+        <div><h3 class="menu-card__title">Americana</h3></div>
+        <p class="menu-card__desc">Carne, Tomate, Lechuga, Cheddar y Salsa de la casa. Con papas.</p>
+        <div class="menu-card__tags"><span class="tag" aria-label="artesanal">AR</span></div>
+      </a>
+
+      <a href="#order" class="menu-card reveal reveal-delay-2 visible" aria-label="Hamburguesa Jackson">
+        <div class="menu-card__img"><img src="burgergiu2.jpeg" alt="Hamburguesa Jackson" loading="lazy"></div>
+        <div><h3 class="menu-card__title">Jackson</h3></div>
+        <p class="menu-card__desc">Doble carne, Doble Cheddar, Cebolla Caramelizada. Con papas.</p>
+        <div class="menu-card__tags">
+          <span class="tag" aria-label="artesanal">AR</span>
+          <span class="tag" aria-label="doble">DB</span>
+        </div>
+      </a>
+
+      <a href="#order" class="menu-card reveal reveal-delay-3 visible" aria-label="Hamburguesa Mc Cartney">
+        <div class="menu-card__img"><img src="burgergiu3.jpeg" alt="Hamburguesa Mc Cartney" loading="lazy"></div>
+        <div><h3 class="menu-card__title">Mc Cartney</h3></div>
+        <p class="menu-card__desc">Doble Carne, Cheddar, Panceta y Salsa especial. Con papas.</p>
+        <div class="menu-card__tags">
+          <span class="tag" aria-label="artesanal">AR</span>
+          <span class="tag" aria-label="doble">DB</span>
+        </div>
+      </a>
+    </div>
+
+    <a href="menu.html" class="btn-pill btn-terra btn-lg reveal visible">MENÚ COMPLETO</a>
+  </div>
+</section>
+
+<!-- Story Section -->
+<section class="section section--story" id="story" aria-label="story">
+  <div class="section__inner">
+    <div class="section__logo reveal visible" aria-hidden="true">
+      <div class="sesame-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <h2 class="section__heading reveal reveal-delay-1">¿Quiénes<br>Somos?</h2>
+    <p class="section__sub reveal reveal-delay-2">Burgers artesanales con alma tucumana.</p>
+
+    <a href="#story" class="btn-pill btn-terra btn-lg reveal reveal-delay-3">LEER MÁS</a>
+
+    <div class="story-grid reveal reveal-delay-1">
+      <article class="story-card story-card--span2" aria-label="Burgers Artesanales">
+        <div class="spin-badge" aria-hidden="true">
+          <div class="spin-badge__ring"></div>
+          <div class="spin-badge__fill"><span>Menú</span></div>
+        </div>
+        <img class="story-card__img" src="juntada4.png" alt="chef cocinando" loading="lazy">
+        <div class="story-card__overlay"></div>
+        <div class="story-card__content">
+          <h3 class="story-card__title">Hecho con Fuego</h3>
+          <p class="story-card__desc">Cada burger de Giuli está hecha a mano, con carne fresca y ingredientes seleccionados. Sin atajos, solo sabor real.</p>
+        </div>
+      </article>
+
+      <article class="story-card" aria-label="Más que una Burger">
+        <img class="story-card__img" src="juntada3.png" alt="amigos comiendo" loading="lazy">
+        <div class="story-card__overlay"></div>
+        <div class="story-card__content">
+          <h3 class="story-card__title">Más que una Burger</h3>
+          <p class="story-card__desc">Pizzas, empanadas y sándwiches de milanesa. Tenemos todo lo que necesitás en un solo pedido.</p>
+        </div>
+      </article>
+
+      <article class="story-card" aria-label="Delivery a tu Puerta" style="position:relative;">
+        <div class="spin-badge" aria-hidden="true" style="top:auto;left:auto;bottom:-48px;right:-48px;">
+          <div class="spin-badge__ring"></div>
+          <div class="spin-badge__fill"><span>Menú</span></div>
+        </div>
+        <img class="story-card__img" src="juntada2.png" alt="delivery a domicilio" loading="lazy" style="object-position: 51.8% 16.4%;">
+        <div class="story-card__overlay"></div>
+        <div class="story-card__content">
+          <h3 class="story-card__title">Delivery a tu Puerta</h3>
+          <p class="story-card__desc">Pedí por WhatsApp al 3815189437 y recibí tu Giuli Burger donde estés, rápido y caliente.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Feedback Section -->
+<section class="section section--feedback" id="feedback" aria-label="reseñas de clientes">
+  <div class="section__inner">
+    <div class="section__logo reveal" aria-hidden="true">
+      <div class="sesame-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <h2 class="section__heading reveal reveal-delay-1">Lo que<br>dicen de nosotros.</h2>
+    <p class="section__sub reveal reveal-delay-2">Nuestros clientes hablan...</p>
+
+    <a href="#feedback" class="btn-pill btn-terra btn-lg reveal reveal-delay-3">NUESTRO LOCAL</a>
+  </div>
+
+  <!-- Forward track -->
+  <div class="reviews-track-wrap">
+    <div class="reviews-track reviews-track--fwd" aria-label="reseñas de clientes">
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Lucía</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"La mejor burger artesanal que probé en Tucumán. Llegó caliente y el sabor es increíble. ¡Ya pedí tres veces!"</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada1.png" alt="Amigos comiendo" loading="lazy">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Matías</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Yerba Buena</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Pedí la Jackson y no me arrepiento. El delivery fue rápido y todo llegó perfecto. 10 puntos."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada8.png" alt="burger en mesa" loading="lazy" style="object-position:55.5% 16.8%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Romina</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"La pizza de roquefort es una locura. Y las empanadas de pollo, ni hablar. ¡Todo riquísimo!"</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada10.png" alt="burgers en bandeja" loading="lazy" style="object-position:50% 19.3%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Diego</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Excelente relación calidad-precio. Las papas crujientes y la burger jugosa. ¡Voy a volver!"</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada9.png" alt="" loading="lazy">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Carolina</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Yerba Buena</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Pedí por WhatsApp y en 30 minutos lo tenía en casa. Atención divina y comida espectacular."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada8.png" alt="" loading="lazy" style="object-position:55.5% 16.8%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Facundo</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"El milanesa especial es un viaje. Porción enorme y las papas no fallan nunca. Recomendadísimo."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Reverse track -->
+  <div class="reviews-track-wrap" style="margin-top:32px; margin-bottom: 64px;">
+    <div class="reviews-track reviews-track--rev">
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Valentina</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Siempre mantienen la calidad. La Americana es mi favorita y nunca me decepciona."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada5.png" alt="burgers en mesa" loading="lazy">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Nicolás</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Las empanadas de ternera y queso son una bomba. Pido seguido y nunca falla el sabor."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada3.png" alt="amigos riendo" loading="lazy" style="object-position:50.7% 37%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Agustina</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Yerba Buena</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Perfecto para el antojo nocturno. Delivery rápido y la pizza fugazzeta es espectacular."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada7.png" alt="amigos comiendo" loading="lazy" style="object-position:51.8% 19.4%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Tomás</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"La juntada con amigos fue un éxito gracias a Giuli. Pedimos de todo y todo estuvo buenísimo."</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="juntada6.png" alt="burger de cerca" loading="lazy" style="object-position:47.5% 21.9%">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Florencia</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"La Francia es mi burger favorita. Pan suave, carne al punto y esa salsa... increíble. ¡Recomendadísima!"</p>
+        </div>
+      </div>
+
+      <div class="review-card review-card--photo" aria-hidden="true">
+        <img src="burger3.jpeg" alt="Burger de cerca" loading="lazy">
+      </div>
+
+      <div class="review-card">
+        <div class="review-card__inner">
+          <div class="review-card__meta">
+            <div class="review-card__name-row">
+              <svg class="icon-person" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 4a1 1 0 101 0zm-1 10l-3 6 3 0 3 6" stroke="var(--terra)" fill="none" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M6 8l6 2 12 0" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <line x1="12" y1="10" x2="12" y2="14" stroke="var(--terra)" stroke-width="2" stroke-linecap="round"></line>
+              </svg>
+              <span class="review-card__name">Sebastián</span>
+            </div>
+            <div class="review-card__loc-row">
+              <svg class="icon-pin" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 10c0 6.627-8 12-8 12S4 16.627 4 10a8 8 0 1116 0z" stroke="var(--terra)" fill="none" stroke-width="2"></path>
+                <circle cx="12" cy="10" r="3" stroke="var(--terra)" fill="none" stroke-width="2"></circle>
+              </svg>
+              <span class="review-card__loc">Tucumán</span>
+            </div>
+          </div>
+          <p class="review-card__text">"Mi lugar fijo los viernes. La Mc Cartney no tiene competencia en todo Tucumán. ¡Un clásico!"</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer-wrap">
+  <footer class="footer">
+    <div class="footer__floats" aria-hidden="true">
+      <div class="footer__float footer__float--l">
+        <img src="burgerlog1.png" alt="burger flotante izquierda" loading="lazy">
+      </div>
+      <div class="footer__float footer__float--r">
+        <img src="burgerlog2.png" alt="burger flotante derecha" loading="lazy">
+      </div>
+    </div>
+
+    <div class="footer__top reveal">
+      <h2 class="footer__heading">Con Hambre,<br>Bienvenidos.</h2>
+      <p class="footer__sub">No te quedes con las ganas. Pedí En Giuli Burger.</p>
+      <a href="menu.html" class="btn-pill btn-char btn-lg" style="margin-top: 16px;">PEDIR AHORA</a>
+    </div>
+
+    <div class="footer__bottom reveal">
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/giuli_burger?igsh=MWc1MHc4djF2NGkxcw==" class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+          </svg>
+        </a>
+      </div>
+      <span class="footer__logo">Giuli Burger</span>
+      <div class="footer__copy">© 2026 Todos los derechos reservados.</div>
+    </div>
+  </footer>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // ── Scroll reveal ──────────────────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    reveals.forEach(el => {
+      el.classList.remove('visible');
+      observer.observe(el);
+    });
+
+    // ── Mobile menu ────────────────────────────────────────────────────
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+        mobileMenu.style.display = 'flex';
+        requestAnimationFrame(() => mobileMenu.classList.add('is-active'));
+      } else {
+        mobileMenu.classList.remove('is-active');
+        setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+      }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-active');
+        setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+      });
+    });
+  });
+
+</script>
+
+</body></html>
