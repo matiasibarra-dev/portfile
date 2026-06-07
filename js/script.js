@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   'use strict';
 
-  /* ── Hamburger / mobile menu ── */
+  /* ── Mobile menu ── */
   const btn  = document.getElementById('hamburgerBtn');
   const menu = document.getElementById('mobileMenu');
   const links = menu.querySelectorAll('[data-mobile-link]');
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
     link.addEventListener('click', closeMenu);
   });
 
-  /* ── Navbar scroll logic ── */
+  /* ── Scroll logic ── */
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 60) {
