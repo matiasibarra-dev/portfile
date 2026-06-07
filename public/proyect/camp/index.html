@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Starlight Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --dark-green: #1c4425;
+  --mid-green: #46664e;
+  --light-green: #d0d8d3;
+  --lime: #93d35c;
+  --yellow: #feb835;
+  --orange: #ff5c00;
+  --white: #fff;
+  --cream: #f1f8e7;
+  --pale-green: #e5f0d5;
+  --soft-green: #d5eabd;
+  --radius-lg: 20px;
+  --radius-pill: 100px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Gabarito', sans-serif; background: var(--white); color: var(--mid-green); overflow-x: hidden; }
+h1,h2,h3,h4,h5,h6,p { margin: 0; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
+
+/* ===== TYPOGRAPHY ===== */
+.luckiest { font-family: 'Luckiest Guy', sans-serif; letter-spacing: 0; line-height: 1.05; }
+.gabarito { font-family: 'Gabarito', sans-serif; }
+
+/* ===== LAYOUT ===== */
+.container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: 15px;
+  color: var(--dark-green);
+  transform: rotate(-8deg);
+  white-space: nowrap;
+}
+.badge-yellow { background: var(--yellow); }
+.badge-lime { background: var(--lime); }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 32px;
+  border-radius: var(--radius-pill);
+  font-family: 'Gabarito', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-orange { background: var(--orange); color: var(--white); }
+.btn-white { background: var(--white); color: var(--dark-green); }
+.btn-outline {
+  background: transparent;
+  color: var(--dark-green);
+  border: 1.5px solid var(--dark-green);
+}
+.btn-outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid var(--white);
+}
+.btn-sm { padding: 13px 24px; font-size: 16px; }
+.btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: var(--dark-green);
+  box-shadow: 0 4px 4px rgba(0,0,0,0.08);
+  transition: background 0.3s ease;
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.navbar-logo img { height: 40px; width: auto; }
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.navbar-links a {
+  color: var(--white);
+  font-size: 17px;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+  position: relative;
+}
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--white);
+  transition: width 0.25s ease;
+}
+.navbar-links a:hover { opacity: 1; }
+.navbar-links a:hover::after { width: 100%; }
+.navbar-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+.navbar-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--white);
+  z-index: 200;
+  flex-direction: column;
+  padding: 30px 24px;
+  overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.mobile-menu-close { font-size: 28px; cursor: pointer; color: var(--dark-green); background: none; border: none; }
+.mobile-menu a {
+  display: block;
+  color: var(--dark-green);
+  font-size: 20px;
+  font-weight: 600;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--pale-green);
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 80px;
+  overflow: hidden;
+  background: var(--dark-green);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 20% 100%;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.65) 90%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.hero-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(60px, 11vw, 176px);
+  line-height: 0.7;
+  color: var(--white);
+  margin-bottom: 40px;
+}
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.6;
+  max-width: 557px;
+  flex: 1 1 300px;
+}
+
+/* ===== SECTION BASE ===== */
+section { width: 100%; }
+
+/* ===== WONDER SECTION ===== */
+.wonder-section {
+  background: var(--cream);
+  padding: 120px 0;
+  position: relative;
+  overflow: visible;
+}
+.wonder-images {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+.wonder-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.wonder-img.wide {
+  width: 161px;
+  height: 136px;
+  border-radius: 12px;
+}
+.wonder-content {
+  text-align: center;
+  max-width: 930px;
+  margin: 0 auto;
+}
+.wonder-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(36px, 5vw, 72px);
+  color: var(--dark-green);
+  line-height: 1.06;
+  margin-bottom: 24px;
+}
+.wonder-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--mid-green);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about-section {
+  background: var(--dark-green);
+  padding: 120px 0;
+}
+.about-grid {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.about-left { flex: 1 1 380px; }
+.about-title-wrap { margin: 20px 0 24px; }
+.about-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(36px, 4vw, 72px);
+  color: var(--white);
+  line-height: 1.06;
+}
+.about-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--light-green);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+.about-widgets { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+.about-widget { display: flex; gap: 16px; align-items: flex-start; }
+.about-widget-icon { width: 48px; height: 48px; flex-shrink: 0; }
+.about-widget-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.about-widget-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--light-green);
+  line-height: 1.6;
+}
+.about-divider { height: 1px; background: var(--mid-green); margin: 32px 0; }
+.about-right { flex: 1 1 300px; position: relative; min-height: 400px; }
+.about-img-main {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 0.81/1;
+  object-fit: cover;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 267 330'%3E%3Cellipse cx='133' cy='165' rx='133' ry='165'/%3E%3C/svg%3E") center/cover no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 267 330'%3E%3Cellipse cx='133' cy='165' rx='133' ry='165'/%3E%3C/svg%3E") center/cover no-repeat;
+}
+.about-badge-float {
+  position: absolute;
+  top: 30%;
+  right: 10%;
+}
+
+/* ===== HOW IT WORKS ===== */
+.how-section {
+  background: var(--dark-green);
+  padding: 80px 0 100px;
+}
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(30px, 4vw, 72px);
+  color: var(--white);
+  line-height: 1.06;
+  margin-top: 16px;
+}
+.section-title.dark { color: var(--dark-green); }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  position: relative;
+}
+.step-item { text-align: left; }
+.step-num {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--lime);
+  margin-bottom: 8px;
+}
+.step-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.step-text { font-size: 16px; font-weight: 500; color: var(--light-green); line-height: 1.6; }
+.step-connector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.step-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--lime);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-dot svg { width: 10px; height: 10px; stroke: white; stroke-width: 2.5; fill: none; }
+.step-line { flex: 1; height: 3px; background: var(--mid-green); }
+
+/* ===== FACILITIES ===== */
+.facilities-section {
+  background: var(--pale-green);
+  padding: 120px 0 160px;
+}
+.facilities-header { text-align: center; margin-bottom: 60px; }
+.facilities-title { color: var(--dark-green); }
+.facilities-text { font-size: 20px; color: var(--mid-green); line-height: 1.6; margin-top: 16px; max-width: 620px; margin-left: auto; margin-right: auto; }
+.cards-scroll-wrap { overflow: hidden; }
+.cards-track {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cards-track::-webkit-scrollbar { display: none; }
+.facility-card {
+  flex-shrink: 0;
+  width: 270px;
+  height: 320px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+.facility-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.facility-card:hover img { transform: scale(1.05); }
+.facility-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  font-family: 'Gabarito', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--white);
+}
+.cards-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--dark-green);
+  opacity: 0.5;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+.dot.active { opacity: 1; }
+
+/* ===== PROGRAMS ===== */
+.programs-section {
+  background: var(--cream);
+  padding: 120px 0;
+}
+.programs-title { color: var(--dark-green); }
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+.program-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.program-card:hover { transform: translateY(-6px); }
+.program-img-wrap {
+  width: 100%;
+  aspect-ratio: 0.86/1;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  overflow: hidden;
+  position: relative;
+}
+.program-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.program-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+}
+.program-play svg { width: 22px; height: 22px; fill: var(--dark-green); margin-left: 3px; }
+.program-name {
+  font-family: 'Gabarito', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--dark-green);
+  line-height: 1.25;
+}
+.program-desc {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--mid-green);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ===== WHY SECTION ===== */
+.why-section {
+  background: var(--dark-green);
+  padding: 120px 0;
+}
+.why-grid {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.why-left { flex: 1 1 400px; }
+.why-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(30px, 3.5vw, 60px);
+  color: var(--white);
+  line-height: 1.06;
+  margin-top: 16px;
+}
+.why-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--light-green);
+  line-height: 1.6;
+  margin: 24px 0 32px;
+}
+.why-right { flex: 1 1 400px; }
+.why-img-wrap { position: relative; }
+.why-img {
+  width: 100%;
+  max-width: 550px;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+.why-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  justify-content: flex-start;
+}
+.tag {
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--dark-green);
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: 16px;
+  color: var(--dark-green);
+}
+.tag-lime { background: var(--lime); }
+.tag-yellow { background: var(--yellow); }
+.tag-orange { background: var(--orange); color: var(--white); }
+
+/* ===== TESTIMONIALS ===== */
+.testimonials-section {
+  background: var(--cream);
+  padding: 120px 0;
+}
+.testimonials-grid {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.testi-left { flex: 1 1 400px; }
+.testi-stacked-imgs {
+  position: relative;
+  height: 290px;
+  width: 100%;
+  max-width: 400px;
+}
+.stacked-img {
+  position: absolute;
+  width: 28%;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 3px solid white;
+}
+.stacked-img:nth-child(1) { left: 0%; top: 50%; transform: translateY(-50%) rotate(5deg); z-index: 1; }
+.stacked-img:nth-child(2) { left: 19%; top: 50%; transform: translateY(-50%) rotate(-7deg); z-index: 2; }
+.stacked-img:nth-child(3) { left: 38%; top: 50%; transform: translateY(-50%) rotate(10deg); z-index: 3; }
+.stacked-img:nth-child(4) { left: 57%; top: 50%; transform: translateY(-50%) rotate(-7deg); z-index: 4; }
+.stacked-img:nth-child(5) { left: 73%; top: 50%; transform: translateY(-50%) rotate(8deg); z-index: 5; }
+.testi-right { flex: 1 1 400px; display: flex; flex-direction: column; gap: 20px; }
+.testi-header { margin-bottom: 24px; }
+.testi-section-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(28px, 3.5vw, 56px);
+  color: var(--dark-green);
+  line-height: 1.06;
+  margin-top: 12px;
+}
+.testi-card {
+  background: var(--lime);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+.testi-user { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.testi-avatar {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.testi-name { font-size: 20px; font-weight: 600; color: var(--dark-green); }
+.testi-role { font-size: 16px; color: var(--dark-green); opacity: 0.7; }
+.testi-quote { font-size: 20px; font-weight: 500; color: var(--dark-green); line-height: 1.4; }
+
+/* ===== VIDEO ===== */
+.video-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+  margin-top: 40px;
+  background: var(--dark-green);
+}
+.video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+.video-play-btn {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--white);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.video-play-btn svg { width: 16px; height: 16px; fill: var(--dark-green); margin-left: 2px; }
+
+/* ===== MAP/LOCATION ===== */
+.location-section {
+  background: var(--pale-green);
+  padding: 80px 0;
+  overflow: hidden;
+}
+.location-grid {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.location-left { flex: 1 1 380px; }
+.location-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(28px, 3.5vw, 56px);
+  color: var(--dark-green);
+  line-height: 1.06;
+  margin-top: 12px;
+}
+.location-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--mid-green);
+  line-height: 1.6;
+  margin: 16px 0 24px;
+}
+.location-tip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px dashed var(--dark-green);
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: var(--soft-green);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-green);
+}
+.location-tip svg { width: 20px; height: 20px; fill: var(--dark-green); }
+.location-right { flex: 1 1 400px; position: relative; }
+.map-img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+.map-pin {
+  position: absolute;
+  width: 20px; height: 20px;
+  background: var(--orange);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid var(--white);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.map-pin:hover { transform: rotate(-45deg) scale(1.3); }
+.map-pin.p1 { top: 50%; left: 57%; }
+.map-pin.p2 { top: 46%; left: 76%; }
+.map-pin.p3 { top: 55%; left: 34%; }
+
+/* ===== DATES SECTION ===== */
+.dates-section {
+  background: var(--lime);
+  padding: 120px 0;
+  overflow: hidden;
+}
+.dates-title { color: var(--dark-green); }
+.dates-widgets {
+  display: flex;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+.date-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 32px;
+}
+.date-divider { width: 1px; height: 60px; background: rgba(28,68,37,0.3); align-self: center; }
+.date-icon { width: 28px; height: 28px; }
+.date-label { font-size: 18px; font-weight: 500; color: var(--dark-green); }
+.date-value { font-size: 22px; font-weight: 800; color: var(--dark-green); text-align: center; }
+
+/* ===== FAMILIES SECTION ===== */
+.families-section {
+  background: var(--cream);
+  padding: 120px 0;
+}
+.families-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+.family-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.family-card:hover { transform: translateY(-4px); }
+.family-card-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--pale-green);
+}
+.family-card-img {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 81%;
+  aspect-ratio: 1.9/1;
+  object-fit: cover;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 525 275'%3E%3Crect rx='16' width='525' height='275'/%3E%3C/svg%3E") center/cover no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 525 275'%3E%3Crect rx='16' width='525' height='275'/%3E%3C/svg%3E") center/cover no-repeat;
+}
+.family-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 32px 32px 32px;
+  background: var(--pale-green);
+  margin-top: auto;
+}
+.family-card-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(28px, 3vw, 44px);
+  color: var(--dark-green);
+  text-align: center;
+  margin-bottom: 12px;
+}
+.family-card-text {
+  font-size: 16px;
+  color: var(--mid-green);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* ===== INSTAGRAM ===== */
+.insta-section {
+  background: var(--dark-green);
+  padding: 80px 0 60px;
+}
+.insta-title {
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: clamp(28px, 3.5vw, 52px);
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 40px;
+}
+.insta-title a { color: var(--lime); }
+.insta-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+}
+.insta-scroll::-webkit-scrollbar { display: none; }
+.insta-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+.insta-img:hover { transform: scale(1.05); }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--dark-green);
+  padding: 40px 0 32px;
+  border-top: 1px solid var(--mid-green);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+}
+.footer-desc {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.footer-col-title {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mid-green);
+  margin-bottom: 12px;
+}
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--white);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  padding-left: 14px;
+  border-left: 2.2px solid var(--mid-green);
+}
+.footer-links a:hover { opacity: 1; }
+.footer-contact { display: flex; flex-direction: column; gap: 12px; }
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--white);
+  opacity: 0.85;
+  line-height: 1.5;
+}
+.footer-contact-item svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+.footer-bottom {
+  padding-top: 32px;
+  border-top: 1px solid var(--mid-green);
+}
+.footer-logo-big img { height: 50px; margin-bottom: 24px; }
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-copy { font-size: 14px; color: var(--light-green); }
+.footer-legal { display: flex; gap: 20px; align-items: center; }
+.footer-legal a { font-size: 14px; color: var(--light-green); transition: color 0.2s; }
+.footer-legal a:hover { color: var(--white); }
+.footer-social { display: flex; gap: 16px; }
+.social-link {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.social-link:hover { opacity: 1; }
+.social-link svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .navbar-links, .navbar .btn { display: none; }
+  .navbar-hamburger { display: flex; }
+  .hero-title { font-size: clamp(44px, 11vw, 80px); }
+  .hero-row { flex-direction: column; gap: 20px; }
+  .about-grid, .why-grid, .testimonials-grid, .why-grid, .location-grid, .families-grid { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .testi-stacked-imgs { height: 180px; max-width: 100%; }
+  .stacked-img { width: 22%; }
+  .why-tags { justify-content: flex-start; }
+  .dates-widgets { flex-direction: column; gap: 24px; }
+  .date-divider { display: none; }
+  .hero { padding-top: 80px; }
+}
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom-row { flex-direction: column; align-items: flex-start; }
+  .wonder-section, .about-section, .testimonials-section, .programs-section,
+  .dates-section, .families-section, .insta-section { padding: 60px 0; }
+  .facility-card { width: 220px; height: 280px; }
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .families-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-logo" href="#">
+      <img src="https://framerusercontent.com/images/RcgVaYnJjYaqzbQcE06PzI7vcA.svg" alt="Starlight Camp Logo">
+    </a>
+    <ul class="navbar-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#dates">Dates & Rates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-orange btn-sm" style="display:flex">Register Now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <button class="navbar-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <img src="https://framerusercontent.com/images/RcgVaYnJjYaqzbQcE06PzI7vcA.svg" alt="Logo" height="34">
+    <button class="mobile-menu-close" id="close-menu">✕</button>
+  </div>
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#programs" onclick="closeMenu()">Programs</a>
+  <a href="#facilities" onclick="closeMenu()">Facilities</a>
+  <a href="#dates" onclick="closeMenu()">Dates & Rates</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#current-family" onclick="closeMenu()">Current Family</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <div style="margin-top:24px">
+    <a href="#contact" class="btn btn-orange" onclick="closeMenu()">Register Now →</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="https://framerusercontent.com/images/UZ3d55FLdaWNpsvTw0f6JfHZ2Wc.png" alt="Camp hero image" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title animate-on-scroll" style="margin-bottom:36px">Starlight<br>Camp</h1>
+    <div class="hero-row">
+      <p class="hero-text animate-on-scroll delay-1">Nestled in breathtaking natural landscapes, our camp offers a nurturing and safe space to explore, grow, and belong.</p>
+      <a href="#contact" class="btn btn-orange animate-on-scroll delay-2">
+        Register Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WONDER SECTION -->
+<section class="wonder-section" id="about-intro">
+  <div class="container">
+    <div class="wonder-images animate-on-scroll">
+      <img src="https://framerusercontent.com/images/MucmjTJJ0P7Fl73awJwD19PLx0.png" alt="Camper" class="wonder-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/cYqgolaVLMmWTSwarCoHme7iXT8.png" alt="Camper" class="wonder-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/tsIad10819yKvFUBsa3eVSXJmA.png" alt="Camper" class="wonder-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/RoXQ3J7vvoQQGqJPm8W9nsxw6J0.png" alt="Camp house" class="wonder-img wide" style="border-radius:12px;" loading="lazy">
+      <img src="https://framerusercontent.com/images/74DpwWvKPwaHemMYBszkeIFSlVM.png" alt="Camper" class="wonder-img" loading="lazy">
+    </div>
+    <div class="wonder-content">
+      <h2 class="wonder-title animate-on-scroll">Discovering Wonder, Friendship, Adventure, and Life-Long Memories</h2>
+      <p class="wonder-text animate-on-scroll delay-1">Every moment is an opportunity to explore, connect, and create memories that last a lifetime, while making friends, discovering new passions, and embracing the beauty of nature.</p>
+      <a href="#programs" class="btn btn-orange animate-on-scroll delay-2">Explore Our Programs
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left animate-on-scroll">
+        <div class="badge badge-yellow">About us</div>
+        <div class="about-title-wrap">
+          <h2 class="luckiest about-title">A Welcoming Natural Haven Close to Home</h2>
+        </div>
+        <p class="about-text">At Starlight Camp, each day is an adventure of laughter and friendship. Campers gain confidence, joy, new skills, and unforgettable summer memories.</p>
+        <div class="about-divider"></div>
+        <div class="about-widgets">
+          <div class="about-widget">
+            <img src="https://framerusercontent.com/images/vA6Ad4hymuLRx7QWHW8Dq32XVA.svg" alt="" class="about-widget-icon">
+            <div>
+              <div class="about-widget-title">Safe and supportive space</div>
+              <p class="about-widget-text">Our team ensures campers feel safe, welcome, and encouraged to shine.</p>
+            </div>
+          </div>
+          <div class="about-widget">
+            <img src="https://framerusercontent.com/images/a7A50h4Bm7Ukj3Jj9RXxjJ0Q6Yg.svg" alt="" class="about-widget-icon">
+            <div>
+              <div class="about-widget-title">Endless Adventures</div>
+              <p class="about-widget-text">Exciting outdoor challenges and creative activities await at every turn.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right animate-on-scroll delay-2">
+        <img src="https://framerusercontent.com/images/Sv1tGNHJc7wyM0MiwrqLzyEZVE.png" alt="About camp" class="about-img-main" loading="lazy">
+        <div class="about-badge-float">
+          <div class="badge badge-lime">Nature</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <div class="badge badge-yellow">How It Works</div>
+      <h2 class="luckiest section-title">From registration to adventure journey</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="animate-on-scroll">
+        <div class="step-connector">
+          <div class="step-dot"><svg viewBox="0 0 14 10"><polyline points="1 5 5 9 13 1"/></svg></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Register Online</div>
+        <p class="step-text">Sign up your child easily and choose camp sessions quickly through our simple online form.</p>
+      </div>
+      <div class="animate-on-scroll delay-1">
+        <div class="step-connector">
+          <div class="step-dot"><svg viewBox="0 0 14 10"><polyline points="1 5 5 9 13 1"/></svg></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Prepare for Camp</div>
+        <p class="step-text">Receive a welcome packet with schedules, packing lists, important reminders, and essential info.</p>
+      </div>
+      <div class="animate-on-scroll delay-2">
+        <div class="step-connector">
+          <div class="step-dot"><svg viewBox="0 0 14 10"><polyline points="1 5 5 9 13 1"/></svg></div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Join the Adventure</div>
+        <p class="step-text">Campers arrive ready to play, explore, and make new friends with guidance from our caring staff.</p>
+      </div>
+      <div class="animate-on-scroll delay-3">
+        <div class="step-connector">
+          <div class="step-dot"><svg viewBox="0 0 14 10"><polyline points="1 5 5 9 13 1"/></svg></div>
+        </div>
+        <div class="step-num">Step 04</div>
+        <div class="step-title">Share the Experience</div>
+        <p class="step-text">Follow photos and updates daily and celebrate your camper's summer achievements together.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:60px" class="animate-on-scroll">
+      <a href="#contact" class="btn btn-orange">Register Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="facilities-section" id="facilities">
+  <div class="container">
+    <div class="facilities-header animate-on-scroll">
+      <div class="badge badge-lime">Facilities</div>
+      <h2 class="luckiest section-title dark" style="margin-top:16px">Discover the Spaces That Make Camp Special</h2>
+      <p class="facilities-text">From waterfronts to cozy cabins and lively activity hubs, our camp ensures excitement and well-being around every corner.</p>
+    </div>
+    <div class="cards-scroll-wrap animate-on-scroll">
+      <div class="cards-track" id="facility-track">
+        <div class="facility-card">
+          <img src="https://framerusercontent.com/images/b1R16Nkgvz2L6EUaX9klywT61c.png" alt="Private Lakes" loading="lazy">
+          <div class="facility-card-label">Private Lakes</div>
+        </div>
+        <div class="facility-card">
+          <img src="https://framerusercontent.com/images/fTqizCj5ZHnhlU1Eiw2ixcK0.png" alt="Cozy Cabins" loading="lazy">
+          <div class="facility-card-label">Cozy Cabins</div>
+        </div>
+        <div class="facility-card">
+          <img src="https://framerusercontent.com/images/wMQO1IFTk82OAwti4KD5c2HNQvM.png" alt="Gathering Spaces" loading="lazy">
+          <div class="facility-card-label">Inviting Spaces to Gather and Play</div>
+        </div>
+        <div class="facility-card">
+          <img src="https://framerusercontent.com/images/b1R16Nkgvz2L6EUaX9klywT61c.png" alt="Private Lakes" loading="lazy">
+          <div class="facility-card-label">Private Lakes</div>
+        </div>
+        <div class="facility-card">
+          <img src="https://framerusercontent.com/images/fTqizCj5ZHnhlU1Eiw2ixcK0.png" alt="Cozy Cabins" loading="lazy">
+          <div class="facility-card-label">Cozy Cabins</div>
+        </div>
+      </div>
+      <div class="cards-dots" id="facility-dots">
+        <button class="dot active" data-index="0"></button>
+        <button class="dot" data-index="1"></button>
+        <button class="dot" data-index="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs-section" id="programs">
+  <div class="container">
+    <div style="text-align:center" class="animate-on-scroll">
+      <div class="badge badge-lime">Programs</div>
+      <h2 class="luckiest programs-title" style="margin-top:16px">Programs That Inspire</h2>
+    </div>
+    <div class="programs-grid">
+      <a href="#programs" class="program-card animate-on-scroll">
+        <div class="program-img-wrap">
+          <img src="https://framerusercontent.com/images/i738aK4KaaUMFTdJtyz47uLUPmA.png" alt="Outdoor Exploration" loading="lazy">
+          <div class="program-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="program-name">Outdoor Exploration</div>
+        <p class="program-desc">Campers hike scenic trails, discover nature, and build a love for the great outdoors.</p>
+      </a>
+      <a href="#programs" class="program-card animate-on-scroll delay-1">
+        <div class="program-img-wrap">
+          <img src="https://framerusercontent.com/images/32Or07csTLkfVEYnNPw2RlCkNg.png" alt="Waterfront Adventures" loading="lazy">
+          <div class="program-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="program-name">Waterfront Adventures</div>
+        <p class="program-desc">Splash, paddle, and play—enjoy safe, exciting fun on the water with instructors.</p>
+      </a>
+      <a href="#programs" class="program-card animate-on-scroll delay-2">
+        <div class="program-img-wrap">
+          <img src="https://framerusercontent.com/images/VtDbws3WWG30pRGlf9pNaTEgjs.png" alt="Team Sports" loading="lazy">
+          <div class="program-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="program-name">Team Sports & Challenges</div>
+        <p class="program-desc">Campers build teamwork, resilience, and fun through sports and games.</p>
+      </a>
+      <a href="#programs" class="program-card animate-on-scroll delay-3">
+        <div class="program-img-wrap">
+          <img src="https://framerusercontent.com/images/2J08qlvuaEHpnrRLhq8WsI8UXI.png" alt="Creative Expression" loading="lazy">
+          <div class="program-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="program-name">Creative Expression</div>
+        <p class="program-desc">From art to theater and dance, campers explore and showcase their unique talent.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left animate-on-scroll">
+        <div class="badge badge-yellow">Why Parents Trust Us</div>
+        <h2 class="luckiest why-title">Care You Can Count On, Every Step of the Way!</h2>
+        <p class="why-text">Families choose us for safety, growth, and fun every summer. Caring staff help children thrive, explore, and grow with confidence and joy.</p>
+        <a href="#programs" class="btn btn-orange">Explore Our Programs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="why-tags" style="margin-top:32px">
+          <div class="tag tag-lime">Experienced Staff</div>
+          <div class="tag tag-yellow">Safety First</div>
+          <div class="tag tag-orange">Engaging Learning</div>
+        </div>
+      </div>
+      <div class="why-right animate-on-scroll delay-2">
+        <img src="https://framerusercontent.com/images/9wWPckIoWeE5ZSzWpoT2ELKECA.png" alt="Happy campers" class="why-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="testimonials-grid">
+      <div class="testi-left animate-on-scroll">
+        <div class="badge badge-lime" style="margin-bottom:24px">At a Glance</div>
+        <h2 class="luckiest testi-section-title">From the Families Who've Been Here</h2>
+        <div class="testi-stacked-imgs" style="margin-top:32px">
+          <img src="https://framerusercontent.com/images/L9pkAW6S0g1puqoMYxGBnMGiu8.png" alt="Camper" class="stacked-img">
+          <img src="https://framerusercontent.com/images/fdj5MNz5gnfjCqfGbjwsxBDal4.png" alt="Camper" class="stacked-img">
+          <img src="https://framerusercontent.com/images/Y1DDT0LHJ6equkclL1hdJDDLGkU.png" alt="Camper" class="stacked-img">
+          <img src="https://framerusercontent.com/images/juEWvKMC87vRnM9RosgdS1yRA.png" alt="Camper" class="stacked-img">
+          <img src="https://framerusercontent.com/images/5a67UxRtfQ3E47W1qlnhSLvpHg.png" alt="Camper" class="stacked-img">
+        </div>
+        <div class="video-wrap" style="margin-top:48px">
+          <video src="https://framerusercontent.com/assets/1n80pBQUTCCNOH710IMqCjX74.webm" loop preload="none" poster="https://framerusercontent.com/images/ClSrooMO4s0yhS3PIXPoYOJ8Mo.png" playsinline id="camp-video" style="width:100%;height:100%;object-fit:cover;"></video>
+          <button class="video-play-btn" id="play-btn" aria-label="Play video">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="testi-right animate-on-scroll delay-1">
+        <div class="testi-card">
+          <div class="testi-user">
+            <img src="https://framerusercontent.com/images/qS6AeZIP8Hw44vzi8QuKOaizqps.png" alt="John Mora" class="testi-avatar">
+            <div>
+              <div class="testi-name">John Mora</div>
+              <div class="testi-role">Parent of 5 year old</div>
+            </div>
+          </div>
+          <p class="testi-quote">"Our child returned each day with joy and endless stories! The supportive staff, creative programs, and exciting activities made summer remarkable."</p>
+        </div>
+        <div class="testi-card">
+          <div class="testi-user">
+            <img src="https://framerusercontent.com/images/WxR2E7K3l7XnDQoO2vHdahJfw.png" alt="Michael Smith" class="testi-avatar">
+            <div>
+              <div class="testi-name">Michael Smith</div>
+              <div class="testi-role">Parent of 10 year old</div>
+            </div>
+          </div>
+          <p class="testi-quote">"Our child came home every day full of excitement and stories! The caring team, fun programs, and engaging activities made summer unforgettable."</p>
+        </div>
+        <div class="testi-card">
+          <div class="testi-user">
+            <img src="https://framerusercontent.com/images/E0p8byOZTAASic9JX5dHje4JKM.png" alt="Sammy Heli" class="testi-avatar">
+            <div>
+              <div class="testi-name">Sammy Heli</div>
+              <div class="testi-role">Parent of 12 year old</div>
+            </div>
+          </div>
+          <p class="testi-quote">"Our child came back daily filled with happiness and stories! The devoted team and fun-filled activities made summer incredibly memorable."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div class="location-left animate-on-scroll">
+        <div class="badge badge-lime">Take a virtual tour</div>
+        <h2 class="luckiest location-title">Explore our camp map</h2>
+        <p class="location-text">Discover every corner of camp with our interactive map. See cabins, activity zones, outdoor trails, and creative play spaces.</p>
+        <div class="location-tip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          Tap on a spot's image to learn more!
+        </div>
+      </div>
+      <div class="location-right animate-on-scroll delay-1">
+        <img src="https://framerusercontent.com/images/4jxNIUkGp24DDZcrem5potXxk.png" alt="Camp map" class="map-img" loading="lazy">
+        <div class="map-pin p1" title="Sports Field"></div>
+        <div class="map-pin p2" title="Lake Area"></div>
+        <div class="map-pin p3" title="Cabins"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATES -->
+<section class="dates-section" id="dates">
+  <div class="container">
+    <div style="text-align:center" class="animate-on-scroll">
+      <div class="badge badge-yellow">For early birds</div>
+      <h2 class="luckiest dates-title" style="margin-top:16px;color:var(--dark-green)">Dates to look forward to for Camp 2026</h2>
+    </div>
+    <div class="dates-widgets animate-on-scroll delay-1">
+      <div class="date-item">
+        <img src="https://framerusercontent.com/images/pAL0gY7vlTkF67saMDqcRs3ruAs.svg" alt="" class="date-icon">
+        <div class="date-label">2026 Countdown</div>
+        <div class="date-value">Camp Starts in 153 Days</div>
+      </div>
+      <div class="date-divider"></div>
+      <div class="date-item">
+        <img src="https://framerusercontent.com/images/f1UKBTwDFfmZbd5Gy2rw3b03oY.svg" alt="" class="date-icon">
+        <div class="date-label">Opening Day</div>
+        <div class="date-value">Monday February 19</div>
+      </div>
+      <div class="date-divider"></div>
+      <div class="date-item">
+        <img src="https://framerusercontent.com/images/LVqOyWthOG726tdMXfmwdyyAZr4.svg" alt="" class="date-icon">
+        <div class="date-label">Visiting Day</div>
+        <div class="date-value">Monday March 23</div>
+      </div>
+      <div class="date-divider"></div>
+      <div class="date-item">
+        <img src="https://framerusercontent.com/images/f1UKBTwDFfmZbd5Gy2rw3b03oY.svg" alt="" class="date-icon">
+        <div class="date-label">Closing Day</div>
+        <div class="date-value">Monday April 15</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:60px" class="animate-on-scroll">
+      <a href="#contact" class="btn btn-orange">Register Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILIES CTA -->
+<section class="families-section" id="contact">
+  <div class="container">
+    <div class="families-grid">
+      <a href="#current-family" class="family-card animate-on-scroll">
+        <div class="family-card-bg"></div>
+        <img src="https://framerusercontent.com/images/PKESG4xCq6o1OIHY7pbHxAO3Xo.png" alt="Current families" class="family-card-img" loading="lazy">
+        <div class="family-card-body">
+          <h3 class="luckiest family-card-title">Current families</h3>
+          <p class="family-card-text">Already enrolled? Find everything you need—forms, packing lists, updates, and travel info—all in one place.</p>
+          <div style="text-align:center">
+            <span class="btn btn-outline">Learn more</span>
+          </div>
+        </div>
+      </a>
+      <a href="#register" class="family-card animate-on-scroll delay-1">
+        <div class="family-card-bg"></div>
+        <img src="https://framerusercontent.com/images/kFFqYk4vxQxf5hPOrYrZXRlA.png" alt="Future families" class="family-card-img" loading="lazy">
+        <div class="family-card-body">
+          <h3 class="luckiest family-card-title">Future families</h3>
+          <p class="family-card-text">New to camp? Discover why families choose us—programs, safety, and everything your child will love about camp.</p>
+          <div style="text-align:center">
+            <span class="btn btn-orange">Register now</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="insta-section">
+  <div class="container">
+    <p class="insta-title">follow on the <a href="https://www.instagram.com/" target="_blank" rel="noopener">@StarlightCamp</a></p>
+    <div class="insta-scroll">
+      <img src="https://framerusercontent.com/images/iruQnLwvZWg9oZ9p8v8C1TtjGc0.png" alt="Instagram post" class="insta-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/B1sLuaDnhAaAd4mXSCg1YssuI.png" alt="Instagram post" class="insta-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/kzEDyqEFAkof4BfSLyRWAAkuEPk.png" alt="Instagram post" class="insta-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/qFs5i7QhaWE1lH64m2t6A7BOHW8.png" alt="Instagram post" class="insta-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/R34KiTv2HaS3kOcUvWBsgCilMVA.png" alt="Instagram post" class="insta-img" loading="lazy">
+      <img src="https://framerusercontent.com/images/wZsArgf4j4rjNmwPMG9M2fmsuuc.png" alt="Instagram post" class="insta-img" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="https://framerusercontent.com/images/RcgVaYnJjYaqzbQcE06PzI7vcA.svg" alt="Starlight Camp" height="40" style="margin-bottom:20px">
+        <p class="footer-desc">Starlight Camp offers a safe, fun place where kids grow, play, make friends, explore activities, and create lasting memories.</p>
+        <a href="#contact" class="btn btn-white btn-sm">Register now</a>
+      </div>
+      <div>
+        <span class="footer-col-title">Pages</span>
+        <ul class="footer-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Programs</a></li>
+          <li><a href="#">Current Families</a></li>
+          <li><a href="#">Dates & Rates</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">More</span>
+        <ul class="footer-links">
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">404 page</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Contact</span>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            (123) 456-7890
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            info@starlight.com
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            123 Campfire Lane, Sunny Pines, USA
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-row">
+        <span class="footer-copy">©2026 Starlight Camp. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Terms & conditions</a>
+          <a href="#">Privacy policy</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+          <a href="https://x.com/" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+          <a href="https://youtube.com/" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-1.95C18.88 4 12 4 12 4s-6.88 0-8.6.47a2.78 2.78 0 00-1.94 1.95A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.53C5.12 20 12 20 12 20s6.88 0 8.6-.47a2.78 2.78 0 001.94-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.2)';
+  } else {
+    navbar.style.boxShadow = '0 4px 4px rgba(0,0,0,0.08)';
+  }
+});
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const closeMenu = () => { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; };
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('close-menu').addEventListener('click', closeMenu);
+window.closeMenu = closeMenu;
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      observer.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Hero immediate animation
+setTimeout(() => {
+  document.querySelectorAll('.hero .animate-on-scroll').forEach(el => el.classList.add('visible'));
+}, 200);
+
+// Facility cards dots
+const track = document.getElementById('facility-track');
+const dots = document.querySelectorAll('#facility-dots .dot');
+if (track) {
+  track.addEventListener('scroll', () => {
+    const idx = Math.round(track.scrollLeft / (track.querySelector('.facility-card').offsetWidth + 16));
+    dots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, dots.length - 1)));
+  });
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const card = track.querySelector('.facility-card');
+      track.scrollTo({ left: i * (card.offsetWidth + 16), behavior: 'smooth' });
+    });
+  });
+}
+
+// Video play button
+const video = document.getElementById('camp-video');
+const playBtn = document.getElementById('play-btn');
+if (video && playBtn) {
+  playBtn.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      playBtn.style.opacity = '0';
+    } else {
+      video.pause();
+      playBtn.style.opacity = '1';
+    }
+  });
+  video.addEventListener('click', () => {
+    if (!video.paused) { video.pause(); playBtn.style.opacity = '1'; }
+  });
+}
+</script>
+</body>
+</html>
