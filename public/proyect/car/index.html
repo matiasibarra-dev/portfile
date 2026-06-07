@@ -1,0 +1,584 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoyalCar - Luxury Car Dealer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar" style="background: rgba(255, 255, 255, 0.85);">
+  <div class="navbar__inner">
+    <!-- Logo as SVG text for no external dependency -->
+    <a href="#" class="navbar__logo">
+      <svg viewBox="0 0 200 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text y="24" font-family="Manrope, sans-serif" font-weight="800" font-size="22" letter-spacing="-1" fill="#0b0d10">RoyalCar</text>
+      </svg>
+    </a>
+
+    <div class="navbar__links">
+      <a href="#inventory" class="navbar__link">Inventory</a>
+      <a href="#services" class="navbar__link">Services</a>
+      <a href="#blog" class="navbar__link">Blog</a>
+    </div>
+
+    <a href="#contact" class="navbar__cta btn btn--dark">Schedule a Visit</a>
+
+    <button class="navbar__hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav__close" id="mobile-close" aria-label="Close menu">✕</button>
+  <a href="#inventory" class="mobile-nav__link">Inventory</a>
+  <a href="#services" class="mobile-nav__link">Services</a>
+  <a href="#blog" class="mobile-nav__link">Blog</a>
+  <a href="#contact" class="mobile-nav__link">Contact</a>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="hero__bg">
+    <img src="dubai.png" alt="Luxury sports cars side by side" loading="eager">
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title fade-up fade-up--1">
+      <span style="display: block;
+    background: linear-gradient(179deg, var(--gray), #0b0d10);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;">Premium cars in Dubai.</span>
+      <span style="color:black;">Chosen to impress.</span>
+    </h1>
+    <p class="hero__sub fade-up fade-up--2">Dubai, UAE — real luxury you can actually drive.</p>
+    <a href="#inventory" class="btn btn--dark fade-up fade-up--3">Explore Vehicles</a>
+  </div>
+
+  <!-- Brand ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <!-- Duplicated for infinite loop effect -->
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Porsche
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        BMW
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Ferrari
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        McLaren
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Lambo
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Bentley
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Rolls-R
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Bugatti
+      </div>
+      <!-- Duplicate set -->
+        <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Porsche
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        BMW
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Ferrari
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        McLaren
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Lambo
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Bentley
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Rolls-R
+      </div>
+      <div class="ticker__item">
+        <svg width="30" height="30" viewBox="0 0 50 40" fill="none"><text y="30" font-family="Manrope" font-weight="800" font-size="18" fill="#0b0d10"></text></svg>
+        Bugatti
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ INVENTORY ══════════ -->
+<section class="section" id="inventory">
+  <div class="section__inner">
+    <div class="section__head reveal visible">
+      <h2 class="section__title">Explore Our Latest Vehicles</h2>
+      <p class="section__sub">Selected for performance, condition, and uncompromising quality.</p>
+    </div>
+
+    <div class="vehicles-grid reveal visible">
+      <a href="#inventory" class="vehicle-card">
+        <img src="porsche.png" alt="Porsche Cayenne GTS" loading="lazy">
+        <div class="vehicle-card__overlay">
+          <p class="vehicle-card__price">$139,999</p>
+          <h3 class="vehicle-card__name">Porsche Cayenne GTS</h3>
+        </div>
+      </a>
+
+      <a href="#inventory" class="vehicle-card">
+        <img src="mclaren.png" alt="McLaren 570S" loading="lazy">
+        <div class="vehicle-card__overlay">
+          <p class="vehicle-card__price">$159,999</p>
+          <h3 class="vehicle-card__name">McLaren 570S</h3>
+        </div>
+      </a>
+
+      <a href="#inventory" class="vehicle-card">
+        <img src="ferrari.png" alt="Ferrari SF90 Stradale" loading="lazy">
+        <div class="vehicle-card__overlay">
+          <p class="vehicle-card__price">$489,999</p>
+          <h3 class="vehicle-card__name">Ferrari SF90 Stradale</h3>
+        </div>
+      </a>
+
+      <a href="#inventory" class="vehicle-card">
+        <img src="mercedes.png" alt="Mercedes G 63 AMG" loading="lazy">
+        <div class="vehicle-card__overlay">
+          <p class="vehicle-card__price">$189,999</p>
+          <h3 class="vehicle-card__name">Mercedes G 63 AMG</h3>
+        </div>
+      </a>
+    </div>
+
+    <div style="text-align:center;" class="reveal">
+      <a href="#inventory" class="btn btn--dark">Explore Vehicles</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SERVICES ══════════ -->
+<section class="section section--invert" id="services">
+  <div class="section__inner">
+    <div class="section__head reveal">
+      <h2 class="section__title">More Than a Dealership</h2>
+      <p class="section__sub">From detailing and technical checks to financing, everything is handled to our standard.</p>
+    </div>
+
+    <div class="bento reveal">
+      <div class="bento__left">
+        <img src="full.png" alt="Full Technical Inspection" loading="lazy">
+        <div class="bento__left__label">
+          <h3>Full Technical Inspection</h3>
+          <p>In-house technicians inspect every vehicle, flawless on delivery.</p>
+        </div>
+      </div>
+
+      <div class="bento__right">
+        <div class="bento__row">
+          <div class="bento-card">
+            <img src="support.png" alt="Warranty Support" loading="lazy">
+            <div class="bento-card__label"><h3>Warranty Support</h3></div>
+          </div>
+          <div class="bento-card">
+            <img src="verified.png" alt="Verified History" loading="lazy">
+            <div class="bento-card__label"><h3>Verified History</h3></div>
+          </div>
+        </div>
+        <div class="bento__row">
+          <div class="bento-card">
+            <img src="leasing.png" alt="Financing &amp; Leasing" loading="lazy">
+            <div class="bento-card__label"><h3>Financing &amp; Leasing</h3></div>
+          </div>
+          <div class="bento-card">
+            <img src="profesional.png" alt="Professional Detailing" loading="lazy">
+            <div class="bento-card__label"><h3>Professional Detailing</h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SELL YOUR CAR ══════════ -->
+<div class="sell-section reveal">
+  <div class="sell-section__bg">
+    <img src="about.png" alt="Luxury cars" loading="lazy">
+  </div>
+  <div class="sell-section__inner">
+    <div class="sell-section__head">
+      <h2 class="section__title">Thinking About Selling Your Car?</h2>
+      <p class="section__sub" style="text-align:center;">Share your vehicle details and receive a fair offer with ease.</p>
+      <form class="lead-form" onsubmit="return false;">
+        <div class="lead-form__input-wrap">
+          <input type="tel" class="lead-form__input" placeholder="Your Phone Number" required="">
+        </div>
+        <button type="submit" class="btn btn--dark">Request a Call</button>
+      </form>
+    </div>
+
+    <div class="process-cards">
+      <div class="process-card">
+        <div class="process-card__num">01</div>
+        <h3 class="process-card__title">Share Vehicle Info</h3>
+        <p class="process-card__text">Share your vehicle and a few key details.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-card__num">02</div>
+        <h3 class="process-card__title">Receive Our Offer</h3>
+        <p class="process-card__text">We review your car and send a fair offer.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-card__num">03</div>
+        <h3 class="process-card__title">Complete Your Trade</h3>
+        <p class="process-card__text">Trade in your car and move on with ease.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TEAM ══════════ -->
+<section class="section" id="team">
+  <div class="section__inner">
+    <div class="section__head reveal">
+      <h2 class="section__title">Your RoyalCar Team</h2>
+      <p class="section__sub">From first inquiry to handover, we're here to make it simple.</p>
+    </div>
+
+    <div class="team-scroll reveal">
+      <div class="team-card">
+        <img src="sophia.png" alt="Sophia Carter" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Sophia Carter</p>
+          <p class="team-card__role">Co-Founder</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="michael.png" alt="Michael Reed" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Michael Reed</p>
+          <p class="team-card__role">Founder</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="olivia.png" alt="Olivia Nguyen" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Olivia Nguyen</p>
+          <p class="team-card__role">Client Advisor</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="emma.png" alt="Emma Brooks" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Emma Brooks</p>
+          <p class="team-card__role">Luxury Sales Advisor</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="daniel.png" alt="Daniel Foster" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Daniel Foster</p>
+          <p class="team-card__role">Head of Operations</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="noah.png" alt="Noah Bennett" loading="lazy">
+        <div class="team-card__info">
+          <p class="team-card__name">Noah Bennett</p>
+          <p class="team-card__role">Vehicle Handover Specialist</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="section section--invert" id="testimonials">
+  <div class="section__inner">
+    <div class="section__head reveal">
+      <h2 class="section__title">Customer Stories</h2>
+      <p class="section__sub">Trusted by drivers who value quality, clarity, and performance.</p>
+    </div>
+
+    <div class="testimonial-slider reveal">
+      <div class="testimonial-slides" id="testimonial-slides" style="transform: translateX(-300%);">
+        <!-- Slide 1 -->
+        <div class="testimonial-slide">
+          <img src="jame.png" alt="James Carter testimonial" loading="lazy">
+          <div class="testimonial-slide__overlay">
+            <p class="testimonial-slide__quote">Communication was clear, the inspection report matched the car, and the handover was genuinely smooth.</p>
+            <div class="testimonial-slide__customer">
+              <img class="testimonial-slide__avatar" src="carte.png" alt="James Carter">
+              <div>
+                <p class="testimonial-slide__name">James Carter</p>
+                <p class="testimonial-slide__car">Bought a Porsche 911 GT3 RS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="testimonial-slide">
+          <img src="lea.png" alt="Lea Neumann testimonial" loading="lazy">
+          <div class="testimonial-slide__overlay">
+            <p class="testimonial-slide__quote">I bought a car with 11,000 km and it honestly felt like a new one, spotless and exactly as described.</p>
+            <div class="testimonial-slide__customer">
+              <img class="testimonial-slide__avatar" src="neum.png" alt="Lea Neumann">
+              <div>
+                <p class="testimonial-slide__name">Lea Neumann</p>
+                <p class="testimonial-slide__car">Bought a Ferrari 812 Competizione</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="testimonial-slide">
+          <img src="lukas.png" alt="Lukas Weber testimonial" loading="lazy">
+          <div class="testimonial-slide__overlay">
+            <p class="testimonial-slide__quote">The detailing was on point and the team took time to walk me through everything during handover.</p>
+            <div class="testimonial-slide__customer">
+              <img class="testimonial-slide__avatar" src="webe.png" alt="Lukas Weber">
+              <div>
+                <p class="testimonial-slide__name">Lukas Weber</p>
+                <p class="testimonial-slide__car">Bought a McLaren 765LT</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="testimonial-slide">
+          <img src="danniel.png" alt="Daniel Brooks testimonial" loading="lazy">
+          <div class="testimonial-slide__overlay">
+            <p class="testimonial-slide__quote">No pressure, no surprises. Everything was transparent from the first call to the final paperwork.</p>
+            <div class="testimonial-slide__customer">
+              <img class="testimonial-slide__avatar" src="brooh.png" alt="Daniel Brooks">
+              <div>
+                <p class="testimonial-slide__name">Daniel Brooks</p>
+                <p class="testimonial-slide__car">Bought a Nissan GT-R</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div class="slider-controls" role="tablist" aria-label="Testimonial navigation">
+      <button class="slider-dot" data-slide="0" role="tab" aria-selected="false" aria-label="Slide 1"></button>
+      <button class="slider-dot" data-slide="1" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+      <button class="slider-dot" data-slide="2" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+      <button class="slider-dot active" data-slide="3" role="tab" aria-selected="true" aria-label="Slide 4"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BLOG ══════════ -->
+<section class="section section--invert" id="blog">
+  <div class="section__inner">
+    <div class="reveal" style="display:flex;flex-direction:column;gap:12px;">
+      <h2 class="section__title" style="text-align:left;">Expert Insights for Every Driver</h2>
+      <p class="section__sub" style="text-align:left;">A collection of helpful articles covering premium car trends, ownership tips, and smart buying advice.</p>
+    </div>
+
+    <div class="blog-grid reveal">
+      <a class="blog-card--big" href="#blog">
+        <img src="luxury.png" alt="Luxury car market trends" loading="lazy">
+        <div class="overlay">
+          <p>Feb 22, 2026</p>
+          <h3>Luxury Car Market Trends Every Buyer Should Understand</h3>
+        </div>
+      </a>
+
+      <div class="blog-smalls">
+        <a class="blog-card--small" href="#blog">
+          <img src="top.png" alt="Top mistakes when buying pre-owned" loading="lazy">
+          <div class="blog-card--small__text">
+            <p>Feb 18, 2026</p>
+            <h3>Top Mistakes to Avoid When Buying Pre-Owned</h3>
+          </div>
+        </a>
+        <a class="blog-card--small" href="#blog">
+          <img src="how.png" alt="How to choose a premium vehicle" loading="lazy">
+          <div class="blog-card--small__text">
+            <p>Feb 1, 2026</p>
+            <h3>How to Choose the Right Premium Vehicle</h3>
+          </div>
+        </a>
+        <a class="blog-card--small" href="#blog">
+          <img src="what.png" alt="What makes a luxury car hold value" loading="lazy">
+          <div class="blog-card--small__text">
+            <p>Jan 28, 2026</p>
+            <h3>What Makes a Luxury Car Hold Its Value</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div style="text-align:center;" class="reveal">
+      <a href="#blog" class="btn btn--dark">View all Articles</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA SECTION ══════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-section__video">
+    <video src="lets.mp4" autoplay="" muted="" loop="" playsinline="" aria-hidden="true"></video>
+  </div>
+
+  <div class="cta-box reveal">
+    <div class="cta-box__left">
+      <div>
+        <h2>Let's Find Your Next Vehicle</h2>
+        <p style="margin-top:12px;">Tell us what you need and we'll match you with the right vehicle.</p>
+      </div>
+      <a href="#contact" class="btn btn--dark">Schedule a Visit</a>
+    </div>
+
+    <div class="cta-box__right">
+      <div class="contact-details">
+        <div class="contact-item">
+          <h5>Phone</h5>
+          <h3><a href="tel:+15552389147">1 (555) 238-9147</a></h3>
+        </div>
+        <div class="contact-item">
+          <h5>Email</h5>
+          <h3><a href="mailto:info@royalcar.framer">Info@royalcar.framer</a></h3>
+        </div>
+        <div class="contact-item">
+          <h5>Address</h5>
+          <h3><a href="https://www.google.com/maps/search/Dubai+Marina+Dubai" target="_blank" rel="noopener">Dubai Marina, UAE</a></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer__inner">
+    <div class="footer__top">
+      <!-- Newsletter -->
+      <div class="footer__newsletter">
+        <h3>Exclusive updates</h3>
+        <p>Be the first to see new vehicles and limited opportunities.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <div class="lead-form__input-wrap" style="flex:1;">
+            <input type="email" class="lead-form__input" placeholder="Your Email" required="">
+          </div>
+          <button type="submit" class="btn btn--dark">Subscribe</button>
+        </form>
+      </div>
+
+      <!-- Navigation cols -->
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <div class="footer__col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#inventory">Inventory</a></li>
+            <li><a href="#blog">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">404</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer__bottom">
+      <p class="footer__copy">Copyright © RoyalCar — <a href="#">Luxury Dealership</a></p>
+      <div class="footer__socials">
+        <!-- Facebook -->
+        <a href="https://facebook.com" class="social-icon" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M15.75 8.25h-1.5a2.25 2.25 0 00-2.25 2.25v12.75"></path>
+            <path d="M9 13.5h6"></path>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a href="https://instagram.com" class="social-icon" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4.5"></rect>
+            <circle cx="12" cy="12" r="3.75"></circle>
+            <circle cx="15.75" cy="6" r="1.125" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <!-- YouTube -->
+        <a href="https://youtube.com" class="social-icon" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2.25" y="4.5" width="19.5" height="15" rx="3"></rect>
+            <path d="M10.5 9l4.5 3-4.5 3z"></path>
+          </svg>
+        </a>
+        <!-- TikTok -->
+        <a href="https://tiktok.com" class="social-icon" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15.75 2.25h-3.75v12.375a2.625 2.625 0 01-2.625 2.625 2.625 2.625 0 01-2.625-2.625 2.625 2.625 0 012.625-2.625v-3.75a6.375 6.375 0 00-6.375 6.375 6.375 6.375 0 006.375 6.375 6.375 6.375 0 006.375-6.375V7.313a8.25 8.25 0 004.5 1.312V5.25a5.25 5.25 0 01-4.5-3z"></path>
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com" class="social-icon" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx=".75"></rect>
+            <path d="M11.25 10.5v6M8.25 10.5v6"></path>
+            <path d="M11.25 13.125a2.625 2.625 0 015.25 0V16.5"></path>
+            <circle cx="8.25" cy="7.875" r="1.125" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="https://x.com" class="social-icon" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 3.75h4.5L19.5 20.25h-4.5zM4.5 20.25l6.176-6.794M13.324 3.75L7.148 10.544"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Big wordmark -->
+  <div class="footer__wordmark">
+    <span>RoyalCar</span>
+  </div>
+</footer>
+<script src="script.js"></script>
+
+</body></html>
